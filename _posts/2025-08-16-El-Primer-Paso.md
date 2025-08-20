@@ -1,7 +1,8 @@
 ---
-layout: archive
+layout: single
 title: "El inicio"
 author_profile: true
+permalink: /sobre-mi
 ---
 
 Me gustaría comenzar todo este blog, con algo personal; hace tiempo que no hago cartas ni cosas por el estilo, pero siento que es divertido el escribir de vez en tanto sobre uno mismo antes de pasar a temas profesionales o por el estilo como lo es el hacking, una de mis paciones.
