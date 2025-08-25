@@ -7,7 +7,9 @@ published: true
 
 Las máquinas (de HackTheBox) son retos gamificados enfocados a __Red Team__ o por lo menos, __seguridad ofensiva__, donde tendrás que intentar __tomar control total__ de la máquina que tengas adelante abusando de vulnerabilidades practicando todo el proceso de _pentesting_ como la _obtención de información_, _explotación_ para obtener un _Foothold_, y luego seguir con generalmente, _movimiento lateral_ y finalmente, la _escalada de privilegios_; Estos laboratorios son especialmente útiles para probar conceptos de seguridad ofensiva ya que tendrás que abusar de ellos para seguir avanzando.
 
-## Resumen CodeTwo
+![UTMP]({{ "/images/Strutted/SSH1.png" | relative_url }})
+
+## Resumen Strutted
 
 Esta máquina Linux, se exploran varios conceptos y para facilitarlos, hablaremos de ellos siguiendo el path de ataque: 
 
@@ -19,7 +21,7 @@ Esta máquina Linux, se exploran varios conceptos y para facilitarlos, hablaremo
 
 ## Laboratorio
 
-### Escaneo Inicial
+### Enumeración
 
 Como acostumbramos, enuemramos inicialmente el objetivo con `nmap` con las siguientes flags:
 
