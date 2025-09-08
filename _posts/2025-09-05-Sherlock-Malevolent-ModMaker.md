@@ -11,7 +11,7 @@ Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, e
 
 ## Resumen Trojan
 
-
+En este escenario de análisis de malware, exploraremos varios métodos de análisis estático, principalmente de `strings` en binarios de go (también se recomienda utilizar HxD o `Malcat`, entre más métodos por conocer... mejor!). Luego, exploraremos el flujo con `ghidra` y debuggearemos con `x64dbg` para ver los cambios en el programa en tiempo real para analizar una muestra de ransomware.
 
 ## Laboratorio
 
@@ -384,8 +384,6 @@ Q8: 63 86 61 6e 67 65 12 74 68 69 55 16 70 61 01 73
 #### Q11: What is the name of the project in the encrypted .TXT file?
 
 Para ello, sólo tendremos que ejecutar `bruh.exe` (_recomiendo mucho el hacer el propio script para desencriptar, qué sorpresa sería que un artefacto de un atacante no vuelva a infectar el equipo_) y tendremos el archivo (uno de los artefactos) en texto claro.
-
-crypto/aes.NewCipher
 
 ```
 Q11: QA Hack'n Try
