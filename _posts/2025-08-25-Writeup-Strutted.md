@@ -1,5 +1,5 @@
 ---
-layout: archive
+layout: single
 title: "Machines - Strutted (HTB)"
 author_profile: true
 published: true

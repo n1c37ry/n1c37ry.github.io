@@ -9,7 +9,7 @@ Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, e
 
 ![UTMP]({{ "/images/MalevolentModMaker/logo.png" | relative_url }})
 
-## Resumen Trojan
+## Resumen Malevolent ModMaker
 
 En este escenario de análisis de malware, exploraremos varios métodos de análisis estático, principalmente de `strings` en binarios de go (también se recomienda utilizar HxD o `Malcat`, entre más métodos por conocer... mejor!). Luego, exploraremos el flujo con `ghidra` y debuggearemos con `x64dbg` para ver los cambios en el programa en tiempo real para analizar una muestra de ransomware.
 
