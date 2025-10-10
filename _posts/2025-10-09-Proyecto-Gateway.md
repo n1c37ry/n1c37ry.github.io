@@ -372,6 +372,23 @@ example.com.            3600    IN      A       23.192.228.84
 ;; MSG SIZE  rcvd: 136
 ```
 
+_Nota: A veces, hay que configurar las ip routes así como la ruta por defecto, lo que debería de verse algo parecido a esto:_
+
+```js
+> ip route show
+default via 192.168.0.254 dev wlan0 proto dhcp src 192.168.0.X metric 600 
+192.168.0.0/24 dev wlan0 proto kernel scope link src 192.168.0.X metric 600 
+192.168.137.0/24 dev eth0 proto kernel scope link src 192.168.137.1 metric 100 
+```
+
+En caso de no tener alguna de estas, puedes agregarla con 
+
+```js
+sudo ip route add 192.168.0.0/24 dev wlan0
+sudo ip route add default via 192.168.0.254 dev wlan0
+sudo ip route add 192.168.137.0/24 dev eth0
+```
+
 ## 4. Reglas IP Tables
 
 Bien, ahora mejoraremos la seguridad con `iptables` restringiendo las conexiones; por suerte, es más sencillo ya que siguen una sintaxis en común:
@@ -588,6 +605,16 @@ Y reiniciamos suricata:
 ```
 
 Configurando la RPI (al menos, en configuración básica de seguridad)!.
+
+## 7. Toques finales.
+
+En este punto, podemos conectar incluso un router en el puerto ethernet y desde ahí, configurar el DHCP asegurando las siguientes configuraciones:
+
+* Reservando la dirección `192.168.137.1` del DHCP
+* Indicando el DNS apuntando a la `192.168.137.1`
+* El Gateway apuntando a `192.168.137.1`
+
+
 
 ###### Agradecimiento
 
