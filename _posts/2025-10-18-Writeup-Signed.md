@@ -9,7 +9,7 @@ Las máquinas (de HackTheBox) son retos gamificados enfocados a __Red Team__ o p
 
 ![UTMP]({{ "/images/signed/logo.png" | relative_url }})
 
-## Resumen DarkZero
+## Resumen Signed
 
 Esta máquina __Windows__ es sencilla hasta cierto punto pues el foothold y la escalada es prácticamente el mismo método de explotación (utilizando Silver Tickets) veamos los detalles:
 
