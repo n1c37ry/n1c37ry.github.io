@@ -623,7 +623,7 @@ Object Security ID   : S-1-5-21-1152179935-589108180-1989892463-500
 Object Relative ID   : 500
 
 Credentials:
-  Hash NTLM: 5917507bdf2af2c2b0a868a1cba40726
+  Hash NTLM: 5917517bdf2ef0c2b0a869a1cca40726
 ```
 
 Y con ello, sólo tenemos que hacer _Pass The Hash_ y estamos servidor con un control total sobre el dominio:
