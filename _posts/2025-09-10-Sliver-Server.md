@@ -5,6 +5,7 @@ author_profile: true
 published: true
 toc: true
 toc_sticky: true
+comments: true
 ---
 
 ###### Este es un post que se enfocará en el deploy y el uso Introductorio de un _Command And Control Framework_. Seguramente habrá más tecnicismos así que tenlo en cuenta. 

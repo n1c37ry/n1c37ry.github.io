@@ -5,6 +5,7 @@ author_profile: true
 published: true
 toc: true
 toc_sticky: true
+comments: true
 ---
 
 Un proyecto que estoy desarrollando en mi trabajo es la implementación de un manual para el deployment de un SIEM, con agentes incluidos, sé que hay muchos tutoriales en internet pero también quería divertirme con la configuración un poco, sobre todo para la parte del servidor asegurando su acceso hasta de forma casi paranóica, pero, qué más da, está bien probar configuraciones y cosas nuevas de vez en tanto.

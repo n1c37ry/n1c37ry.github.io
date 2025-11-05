@@ -5,6 +5,7 @@ author_profile: true
 published: true
 toc: true
 toc_sticky: true
+comments: true
 ---
 
 Las simulaciones de __Boss of the SOC (BOTS)__ son entornos gamificados que nos permiten fortalecer nuestras habilidades como __Blue Team__, aunque en escenarios como **Taedonggang APT**, también exploramos técnicas propias del __Red Team__, especialmente en las etapas iniciales de una intrusión.

@@ -5,6 +5,7 @@ author_profile: true
 published: true
 toc: true
 toc_sticky: true
+comments: true
 ---
 
 Este es una versión mejorada de un proyecto que realicé en la Universidad; en ese entonces, la implementación no funcionó ya que utilizaba `OpenWrt` y dos interfaces WiFi para hacer una conexión VPN; el objetivo del proyecto era crear una WiFi "Segura" separada de la red pública; digo "segura", por que toda la red, la enrutaba a WiFi usando un proveedor de VPN y claro, el "seguro" dependerá si confías en el proveedor.
