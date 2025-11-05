@@ -7,7 +7,7 @@ published: true
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _DFIR_ (Digital Forensics and Incident Response) que se enfocan en el __análsis de artefactos forenses__ (es decir, trazas de ataques en los sistemas).
 
-![UTMP]({{ "/images/Trojan/logo.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/logo.png" | relative_url }}){: .align-center}
 
 
 ## Resumen Trojan
@@ -70,7 +70,7 @@ vol -f memory.vmem windows.info
 
 Este proceso se tardará buen rato, pero una vez procesado:
 
-![UTMP]({{ "/images/Trojan/Q1.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q1.png" | relative_url }}){: .align-center}
 
 Específicamente, la 'build version' es la indicada `minor`
 
@@ -84,7 +84,7 @@ Ahora, iniciemos con la captura de tráfico; recordemos que los archivos `pcapng
 
 Al abrir el archivo de captura, veremos varios cientos de paquetes; pero desde los primeros, podremos notar el tipo de paquete como `LLMNR` (Link Local Mutlicast Name Resolution, un protocolo alterno al DNS para resolución de nombres) y si vamos observando el contenido del paquete, veremos la `query` y el campo `Nombre`:
 
-![UTMP]({{ "/images/Trojan/Q2.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q2.png" | relative_url }}){: .align-center}
 
 
 ```bash
@@ -95,7 +95,7 @@ Q2: DESKTOP-38NVPD0
 
 Ahora, hay un pequeño truco acá en vez de buscar zips entre los paquetes; que en vez de ello, podemos buscar entre los archivos captados por el `pcapng` lléndonos a `File` > `Export Objects` > `HTTP` Y escribir `zip` en la barra de búsqueda; si le damos clic, nos mandará a la linea en la que se hace la descarga.
 
-![UTMP]({{ "/images/Trojan/Q4.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q4.png" | relative_url }}){: .align-center}
 
 La respuesta está justo al final de la fila; a unos campos de `hostname`, siendo la respuesta de la siguiente pregunta
 
@@ -118,12 +118,12 @@ Para este utilizaremos `volatility`, pero antes de jugar con él, necesitamos sa
 
 Para esto, descargamos el `zip` de la captura de red; 
 
-![UTMP]({{ "/images/Trojan/Downloadzip.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Downloadzip.png" | relative_url }}){: .align-center}
 
 
 Y listamos el archivo:
 
-![UTMP]({{ "/images/Trojan/Listzip.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Listzip.png" | relative_url }}){: .align-center}
 
 Entonces, el ejecutable malicioso es `Recovery_Setup.exe`
 
@@ -135,7 +135,7 @@ vol -f memory.vmem windows.pslist
 
 Verás que mostrará todos los procesos capturados, pero, uno de ellos, tiene el mismo nombre que nuestro ejecutable.
 
-![UTMP]({{ "/images/Trojan/Q5.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q5.png" | relative_url }}){: .align-center}
 
 Mostrando nuestra respuesta en el campo `PID`
 
@@ -153,7 +153,7 @@ vol -f memory.vmem windows.pstree --pid 484
 
 Si examinamos con atención, veremos que no fue lo único que se ejecutó, pero nuestro proceso sigue ahí junto con su path de ejecución.
 
-![UTMP]({{ "/images/Trojan/Q6.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q6.png" | relative_url }}){: .align-center}
 
 ```bash
 Q6: C:\Users\John\Downloads\Data_Recovery\Recovery_Setup.exe
@@ -167,7 +167,7 @@ Para esto sólo es necesario descomprimir el `zip` de la captura; y utilizar `sh
 sha256sum Recovery_Setup.exe
 ```
 
-![UTMP]({{ "/images/Trojan/Q7.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q7.png" | relative_url }}){: .align-center}
 
 
 ```bash
@@ -184,7 +184,7 @@ Cuando abras la herramienta, tienes que seleccionar File y Añadir nueva evidenc
 
 Al procesarse, verás el root de la imagen para que puedas navegar entre los archivos; los que buscamos es el `amcache`.
 
-![UTMP]({{ "/images/Trojan/EvidenceTree.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/EvidenceTree.png" | relative_url }}){: .align-center}
 
 El archivo (en realidad una base de datos) `amcache` bajo `ROOT:\Windows\AppCOmpat\Programs\Amcache.hve` que almacena información sobre compatibilidad y ejecución de programas; En forensia digital, lo podemos utilizar para determinar qué programas se ejecutaron (aún si ya fueron eliminados); Pueden verlo como el _historial oculto de programas ejecutados_ en sistemas windows, claro. Entonces, ya con nuestro tree, podemos examinar el hive... ¿cierto?
 
@@ -192,7 +192,7 @@ __No__, Está en formato binario y para leerlo necesitamos un _parser_, por suer
 
 Por esta razón, necesitas exportarlo y moverlo a tu máquina y puedes hacerlo únicamente selecionando el `.hve`, click derecho y `Export Files`
 
-![UTMP]({{ "/images/Trojan/Export.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Export.png" | relative_url }}){: .align-center}
 
 Para practicar _trasnferencias de archivos windows>linux_ utilizamos `smbserver` de _Impacket_ para montar un servidor smb en nuestra máquina linux habilitando `smb2`, poniendo el nombre a nuestro share y la ubicación del share en nuestros archivos locales:
 
@@ -246,7 +246,7 @@ amcache v.20200515
 Ahora, examinamos la salida y veremos un poco oculto, nuestro programa y su hora de ejecución:
 
 
-![UTMP]({{ "/images/Trojan/Q8.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q8.png" | relative_url }}){: .align-center}
 
 ```bash
 Q8: 2023-05-30 02:06:29
@@ -256,7 +256,7 @@ Q8: 2023-05-30 02:06:29
 
 Volviendo a `FTK Imager`; examinamos `ROOT:\Windows\AppCompat\Programs\Install` para revisar programas instalados y sus metadatos; encontramos 5 archivos, 4 `.txt` que si los investigamos, veremos que los 2 pares, apuntan a nuestro ejecutable:
 
-![UTMP]({{ "/images/Trojan/Q9.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q9.png" | relative_url }}){: .align-center}
 
 ```bash
 Q9: 2
@@ -268,7 +268,7 @@ Ahora, sabiendo que hace referencia a más archivos, es probable que los encontr
 
 Ordenando por fecha, podremos ver 2 archivos TMP surgidos poco después de la primera ejecución:
 
-![UTMP]({{ "/images/Trojan/Q10.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q10.png" | relative_url }}){: .align-center}
 
 ```bash
 Q10: IS-R7RFP.TMP
@@ -278,7 +278,7 @@ Q10: IS-R7RFP.TMP
 
 Ahora, Volvamos a la captura de tráfico!. Podrá bastarnos con filtrar por `HTTP`, el `source IP 192.168.116.133` y buscar la descarga del `zip` y buscar entre el tráfico generado después de la descarga; si quieres una forma un poco más bruta, puedes también ordenar los `destination IP` para que parezcan agrupados; y copiar y pegar cada una de las urls dentro del paquete, o... te fijas también cuales se generaron poco después de la descarga del `zip` y descartando las IP o direcciones URL que sean legítimas, como las de microsoft; y... tarde o temprano verás las siguietes:
 
-![UTMP]({{ "/images/Trojan/Q11.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q11.png" | relative_url }}){: .align-center}
 
 Que notaremos que en VT están flageadas.
 
@@ -290,11 +290,11 @@ Q11: 4
 
 Esta es bastante sencilla, una vez ubicados los paquetes, tenemos sólo 2 opciones en a primera vista `stuk.php` y `puk.php`, ¿Por qué descarto `dll.php`? En primera, el repetir mucho el patrón de GET hacia un mismo recurso, constantemente (2 segundos entre petición y petición) es un muy fuerte indicativo que sea sólo __la comunicación con el C2__ junto con lo siguiente: _Respuestas al mínimo_
 
-![UTMP]({{ "/images/Trojan/dllphp.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/dllphp.png" | relative_url }}){: .align-center}
 
 Entonces, nos dirigimos a `stuk.php` y seguimos su _traza TCP_, 
 
-![UTMP]({{ "/images/Trojan/Q12.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q12.png" | relative_url }}){: .align-center}
 
 Y notamos como después de consultar `stuk.php`, hace el request de `puk.php` e inicia una descarga
 
@@ -308,7 +308,7 @@ Para esta me he perdido completamente :,
 
 Tuve que pedir ayuda a un compañero y me hizo el gancho a este [writeup](https://medium.com/@mercysitialo/htb-trojan-cc9f177b8da1) Para obtener la respuesta; y parece que donde estaba la respuesta, en `malware bazaar` han quitado el campo donde venía la respuesta :p
 
-![UTMP]({{ "/images/Trojan/Q13.png" | relative_url }})
+![UTMP]({{ "/images/Trojan/Q13.png" | relative_url }}){: .align-center}
 
 ```bash
 Q13: FinalRecovery v3.0.7.0325

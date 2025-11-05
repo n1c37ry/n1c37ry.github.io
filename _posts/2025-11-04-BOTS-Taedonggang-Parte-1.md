@@ -7,7 +7,7 @@ published: true
 
 Las simulaciones de __Boss of the SOC (BOTS)__ son entornos gamificados que nos permiten fortalecer nuestras habilidades como __Blue Team__, aunque en escenarios como **Taedonggang APT**, también exploramos técnicas propias del __Red Team__, especialmente en las etapas iniciales de una intrusión.
 
-![UTMP]({{ "/images/BOTS-Parte1/logo.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/logo.png" | relative_url }}){: .align-center style="max-height: 450px;"}
 
 
 En este escenario, nos enfrentamos a una campaña simulada de un actor avanzado persistente (_APT_), donde debemos identificar y analizar los vectores de __acceso inicial__, así como realizar un profundo __reconocimiento__ de la infraestructura comprometida. Aquí no buscamos tomar control total de una máquina, sino entender cómo lo haría un atacante real y cómo podríamos detectarlo.
@@ -51,13 +51,13 @@ _Ajustamos nuestro index y también filtramos DESDE 01/Agosto/2017_
 
 Y pronto veremos cuántas fuentes disponibles tenemos:
 
-![UTMP]({{ "/images/BOTS-Parte1/SourcesSP.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/SourcesSP.png" | relative_url }}){: .align-center}
 
 _No debe asustarnos el número, asústate cuando no tengas la fuente que necesites hahaha_
 
 Pronto visualizamos una fuente que nos sirve directamente en nuestra hipótesis: El protocolo SMTP (_Simple Mail Transfer Protocol_) que cubriría mails maliciosos.
 
-![UTMP]({{ "/images/BOTS-Parte1/smtplogvis.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/smtplogvis.png" | relative_url }}){: .align-center}
 
 Ahora, podemos filtrar todos los eventos desde esta fuente:
 
@@ -67,11 +67,11 @@ index=botsv2 sourcetype="stream:smtp"
 
 Ahora, lo importante es familiarizarnos con el formato y los campos que tiene cada log; no hace falta ver cada uno de los logs, sino intentar imaginar qué campos cubre o no nuestra fuente; para tirar un poco a la suerte, podemos intentar buscar algo como _'attachment'_ para buscar algún contenido/documento adjunto que haya sido enviado por este medio; entonces accedemos dando clic...
 
-![UTMP]({{ "/images/BOTS-Parte1/searchvalues.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/searchvalues.png" | relative_url }}){: .align-center}
 
 Y buscamos
 
-![UTMP]({{ "/images/BOTS-Parte1/attachsearch.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/attachsearch.png" | relative_url }}){: .align-center}
 
 Añadimos entonces el campo a la búsqueda:
 
@@ -88,15 +88,15 @@ _Esta búsqueda mostrará en una tabla los campos del remitente, destinatario, a
 
 En los resultados, tenemos varios adjuntos interesantes; en primera, los 4 archivos `zip` y luego los 4 `txt` exactamente a los mismos destinatarios:
 
-![UTMP]({{ "/images/BOTS-Parte1/SPZip.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/SPZip.png" | relative_url }}){: .align-center}
 
 La sospecha puede aumentar bastante, ya que la diferencia de las fechas y los adjuntos sujieren un comportamiento sospechoso, podemos examinar los mensajes para aclarar dudas:
 
-![UTMP]({{ "/images/BOTS-Parte1/SPMail.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/SPMail.png" | relative_url }}){: .align-center}
 
 Parece un motivo muy sospechoso para eviar un comprimido de esta manera, para confirmar continuemos con los que tienen el `txt`, que nos indica un mensaje en base64:
 
-![UTMP]({{ "/images/BOTS-Parte1/SPMailBase64.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/SPMailBase64.png" | relative_url }}){: .align-center}
 
 Este mensaje parece ser generado por la protección del correo electrónico; la alarma de un Phishing (__Spearphishing__) se confirma cuando notas que el archivo que generó la alerta tiene el mismo nombre que el comprimido enviado tiempo después, por el mismo remitente.
 
@@ -113,7 +113,7 @@ _Esta búsqueda busca en el Operational en busca del string 'zip', ordenando por
 
 Con esta búsqueda, podemos notar que ya encontramos algunas ejecuciones:
 
-![UTMP]({{ "/images/BOTS-Parte1/invoicezip.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/invoicezip.png" | relative_url }}){: .align-center}
 
 Entonces aprovechamos este log para enriquecer la búsqueda; entonces veamos si fue el único host afectado:
 
@@ -121,7 +121,7 @@ Entonces aprovechamos este log para enriquecer la búsqueda; entonces veamos si 
 index="botsv2" sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" invoice.zip | sort + UtcTime | table host, TargetFilename
 ```
 
-![UTMP]({{ "/images/BOTS-Parte1/invoiceExec.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/invoiceExec.png" | relative_url }}){: .align-center}
 
 Ya confirmado, podemos investigar las acciones del archivo sobre el host:
 
@@ -129,7 +129,7 @@ Ya confirmado, podemos investigar las acciones del archivo sobre el host:
 index="botsv2" sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" invoice.zip  host="wrk-btun" | sort + UtcTime 
 ```
 
-![UTMP]({{ "/images/BOTS-Parte1/windowsword.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/windowsword.png" | relative_url }}){: .align-center}
 
 Esto nos está indicando que el usuario abrió el archivo con `Word`, lo que puede seguir de aquí es ejecución de comandos tanto por `powershell` como por `cmd`, iniciemos con `powershell`:
 
@@ -160,7 +160,7 @@ _Esto revela los logs ejecutados por el usuario y en el equipo infectado, mostra
 
 Para tener una forma de trazabilidad clara, qué acciones y programas se ejecutaron después para crear todo el árbol de procesos:
 
-![UTMP]({{ "/images/BOTS-Parte1/ProcessTree.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/ProcessTree.png" | relative_url }}){: .align-center}
 
 ## Segundo escenario: Reconocimiento
 
@@ -176,7 +176,7 @@ Entonces empezamos a buscar la fuente relevante (`stream:http`) para ver cómo e
 index="botsv2" sourcetype="stream:http"
 ```
 
-![UTMP]({{ "/images/BOTS-Parte1/UASearch.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/UASearch.png" | relative_url }}){: .align-center}
 
 Ya sabiendo que es nuestra fuente relevante, podemos empezar a organizar para filtrar
 
@@ -186,17 +186,17 @@ index="botsv2" sourcetype="stream:http" | stats count by http_user_agent | sort 
 
 La busqueda nos mostrará una tabla con los `UA` más comunes, pero bajando podremos encontrarnos con algunos interesantes como los siguientes
 
-![UTMP]({{ "/images/BOTS-Parte1/SuspiciousUA.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/SuspiciousUA.png" | relative_url }}){: .align-center}
 
 Dejando de ladito a los intentos de ejecución de comandos, debemos observar el `NaenaraBrowser`; `Naenara Browser` es un navegador de Corea del Norte, esto puede ser un indicador que pueda llevarnos a algo, especialmente porque no es muy común. Entonces bajo sospecha del User Agent, hacemos OSINT a la IP, para verla, podemos ver el campo ` src_ip` en el log que corresponda (85.203.47.86).
 
 Buscando con `iplocation.net` encontramos la ubicación del ISP de la IP y no es Corea del Norte.
 
-![UTMP]({{ "/images/BOTS-Parte1/OSINTIP.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/OSINTIP.png" | relative_url }}){: .align-center}
 
 Buscando ahora la organización propietaria de la IP, podemos encontrar también que es de un servicio de infraestructura de TI, incluyendo VPS.
 
-![UTMP]({{ "/images/BOTS-Parte1/glesys.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/glesys.png" | relative_url }}){: .align-center}
 
 ### Extracción de archivos públicos
 
@@ -208,7 +208,7 @@ index="botsv2" sourcetype="stream:http" http_user_agent="Mozilla/5.0 (X11; U; Li
 
 Donde una de las entradas tiene un nombre alarmante:
 
-![UTMP]({{ "/images/BOTS-Parte1/file-extraction.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/file-extraction.png" | relative_url }}){: .align-center}
 
 Lo que sigue es saber ¿qué contenía este archivo?, ¿cuántos son los afectados? y volver a armar nuestras hipótesis desde aquí como parte del proceso defensivo.
 
@@ -225,7 +225,7 @@ _Estamos buscando en los sources la cantidad de logs que mencionen algunas exten
 
 Esta búsqueda nos da la idea de qué logs utilizar:
 
-![UTMP]({{ "/images/BOTS-Parte1/DataStagingExt.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/DataStagingExt.png" | relative_url }}){: .align-center}
 
 `SMB` puede ser un excelente punto de partida ya que es de los protocolos más comunes a la hora de compartir archivos en entornos grandes junto con FTP, probemos primero SMB.
 
@@ -239,7 +239,7 @@ index="botsv2" source="stream:smb" (docx OR doc OR pdf OR xls OR xlsx) | stats c
 
 Desde aquí podemos ver el principal cliente (más de 1700 peticiones en muy poco tiempo)
 
-![UTMP]({{ "/images/BOTS-Parte1/DataStagingSMB.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/DataStagingSMB.png" | relative_url }}){: .align-center}
 
 Claramente, esto indica una alarma de la gran cantidad de archivos transferidos; para ver qué archivos se han movido, puedes utilizar una query más descriptiva añadiendo algunos campos extras del tipo de log `stream:smb`
 
@@ -251,7 +251,7 @@ index="botsv2" source="stream:smb" src_ip=10.0.2.107 | stats count by command
 
 Esto nos muestra los varios valores en el campo `command`
 
-![UTMP]({{ "/images/BOTS-Parte1/SMBCommands.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/SMBCommands.png" | relative_url }}){: .align-center}
 
 Al que debemos poner atención es `smb2 create` que se genera cuando se crea, abre o accede a un archivo en el servidor SMB:
 
@@ -262,7 +262,7 @@ _Estamos filtrando el `Zone.Identifier` ya que esta extensión la genera el clie
 
 Esta búsqueda refleja qué archivos fueron movidos por el atacante.
 
-![UTMP]({{ "/images/BOTS-Parte1/DataStagingPDF.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/DataStagingPDF.png" | relative_url }}){: .align-center}
 
 De momento, el atacante ha movido los archivos, pero debemos investigar ahora la transferencia por una posible filtración de datos.
 
@@ -283,7 +283,7 @@ index="botsv2" source="stream:ftp" src_ip=10.0.2.107 | stats count by dest_ip, s
 
 Con esta búsqueda podrás saber cuántos logs se generaron correlacionando su comunicación; Con esto, confirmamos el filtrado de los archivos.
 
-![UTMP]({{ "/images/BOTS-Parte1/FTPExfiltration.png" | relative_url }})
+![UTMP]({{ "/images/BOTS-Parte1/FTPExfiltration.png" | relative_url }}){: .align-center}
 
 ###### Agradecimiento
 

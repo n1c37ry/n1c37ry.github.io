@@ -7,7 +7,7 @@ published: true
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _Malware Analysis_  que se enfocan en el __análsis de artefactos y archivos maliciosos__ con el objetivo de entender su funcionalidad, origen e impacto, para poder crear medidas de detección mejorando la seguridad del entorno.
 
-![UTMP]({{ "/images/MalevolentModMaker/logo.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen Malevolent ModMaker
 
@@ -120,7 +120,7 @@ Q2: Warhook
 
 Ahora, sólo tenemos que plantearnos... cómo piensa ejecutar comandos?, pues lo más común, buscar nuestras consolas favoritas: __cmd__ y __powershell__
 
-![UTMP]({{ "/images/MalevolentModMaker/Q3.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q3.png" | relative_url }}){: .align-center}
 
 Como notarán en la imagen, ambos strings pueden indicar ejecución, pero especialmente, el de `powershell`, indica una ejecución _evadiendo la protección_ (`bypass`) del `Execution-Policy`. _Es importante resaltar que los strings pueden combinarse pero en evasión del execution policy, el argumento es sólo `bypass`_
 
@@ -140,7 +140,7 @@ strings MCModMaker-v.1.4.exe | grep "http" | grep "api"
 
 Dentro de todo lo que devuelve, veremos una `URL` con los strings `country,city` y la `apiKey` que nos habla la pregunta
 
-![UTMP]({{ "/images/MalevolentModMaker/Q4.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q4.png" | relative_url }}){: .align-center}
 
 ```bash
 Q4: ZVaVoDH7
@@ -154,7 +154,7 @@ Volvemos al mismo comando de la segunda pregunta; recuerda que si buscamos un do
  ❯ strings MCModMaker-v.1.4.exe | grep "http://" 
 ```
 
-![UTMP]({{ "/images/MalevolentModMaker/Q5.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q5.png" | relative_url }}){: .align-center}
 
 Es importante que notes los 3 dominios, pero en especial, __uno que apunta hacia un ejecutable__, siendo nuestra respuesta:
 
@@ -172,11 +172,11 @@ Ahora, buscamos cabeceras `HTTP`, si la pregunta es cuál es el formato, deberí
 
 Si vamos revisando poco a poco todos los strings, notaremos poco después que vendrán especificadas en un sólo espacio, todos los valores de las cabeceras que utiliza:
 
-![UTMP]({{ "/images/MalevolentModMaker/contenttype.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/contenttype.png" | relative_url }}){: .align-center}
 
 Donde en particular, debemos notar una cabecera que si tenemos un poquito de familiaridad con web proxies u `http` podremos saber que es la respuesta.
 
-![UTMP]({{ "/images/MalevolentModMaker/Q6.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q6.png" | relative_url }}){: .align-center}
 
 ```bash
 Q6: content/php
@@ -226,7 +226,7 @@ Q7: TXT
 
 Ahora, buscamos un aviso y strings fuertes o lógicos para la pregunta pueden ser: `restricted` `restrict` `deny` `access` o parecidos, donde en uno de ellos, obtenemos un hit y la respuesta:
 
-![UTMP]({{ "/images/MalevolentModMaker/Q8.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q8.png" | relative_url }}){: .align-center}
 
 ```BASH
 Q8: Skiping file: %d (Acess denied)
@@ -242,24 +242,24 @@ Al abrir el archiv (con doble clic sobre el archivo) veremos el _ASM_ y el _Deco
 
 Seleccionamos entonces _Search > For Strings_ ingresamos `encrypt` y veremos una coincidencia llamada `main.encryptFile`
 
-![UTMP]({{ "/images/MalevolentModMaker/ghidrasearch.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/ghidrasearch.png" | relative_url }}){: .align-center}
 
 Y seleccionamos el `XREF` y la dirección (indica la dirección de donde es llamada esta función) luego, seleccionamos `main::main.encryptFIle entryOff` que nos dirigirá justo a donde podremos examinar la función y para verla visualmente, seleccionamos Display Function Graph
 
 
-![UTMP]({{ "/images/MalevolentModMaker/functiongraph.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/functiongraph.png" | relative_url }}){: .align-center}
 
 Ahora iniciemos con el análisis, después de un `while loop`, avanzamos hacia el siguiente fragmento, el cual contiene un call de una función llamada `os::os:ReadFile`, como vemos en las instrucciones, si la función devuelve otra cosa que no sea un cero, continúa el flujo hacia `004b71cb` (ya que la instrucción `JZ LAB__004B7293` indica que si devuelve un 0, el flujo sigue hacia `LAB__004B7293`) 
 
-![UTMP]({{ "/images/MalevolentModMaker/ghidrafalse.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/ghidrafalse.png" | relative_url }}){: .align-center}
 
 Ahora, si examinamos ese flujo, nos encontraremos muy pronto lo que pasa si continuamos ese flujo viendo las instrucciones del decompilador:
 
-![UTMP]({{ "/images/MalevolentModMaker/ghidraerror.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/ghidraerror.png" | relative_url }}){: .align-center}
 
 __Esta rama finaliza con un error__ sobre la lectura del archivo, esto según la pregunta, indica que estamos en el punto donde la lectura es fallida, entonces... para la respuesta, sólo debemos movernos al flujo en `LAB__004B7293` donde ahora sabemos, que es cuando la lectura es exitosa.
 
-![UTMP]({{ "/images/MalevolentModMaker/Q9.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q9.png" | relative_url }}){: .align-center}
 
 Una vez aquí, verás una instrucción `CALL` y por nuestra pregunta, apunta a ser nuestra respuesta:
 
@@ -273,7 +273,7 @@ Ahora, continuemos el flujo con la misma lógica que la anterior.
 
 Inmediantamente después, la instrucción `JZ LAB_004b7391` indica que en caso de que nuestra función `crypto/aes.NewCipher` devuelva un 0, el flujo continuará hacia `LAB_004b7391`, caso contrario, el flujo continua a `004b72cb`. donde al final de ese flujo, indica un error pero ahora, __sobre el cifrado del archivo__
 
-![UTMP]({{ "/images/MalevolentModMaker/ghidracripterror.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/ghidracripterror.png" | relative_url }}){: .align-center}
 
 Puedes tenerlo en cuenta como para un indicador 'del buen camino' y no asustarte tanto, eso sí, aquí es crítico que entiendas cómo funciona el ensamblador, las operaciones y el flujo de las operaciones, ¿por qué? por que es fundamental que entiendas cómo se mueven las cosas entre los registros y las direcciones, con suerte, en el laboratorio no es tan necesario profundizar para la respuesta, pero tampoco es taaan sencillo.
 
@@ -346,21 +346,21 @@ En `x64dbg`, puedes dar _click derecho > Search for > Current Module > String re
 
 Hacemos lo mismo en `ghidra` _Search > For Strings_ y buscar el mismo término
 
-![UTMP]({{ "/images/MalevolentModMaker/ghidrastrings.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/ghidrastrings.png" | relative_url }}){: .align-center}
 
 Te diriges a la dirección indicada (la terminación `7778`) y notarás que ambas direcciones son __similares pero no iguales__, en mi caso, sólo es sumar 2 de hexadecimal a mi 5to byte (b -> d), tendrás que hacer el cálculo para tu caso.
 
-![UTMP]({{ "/images/MalevolentModMaker/x64dbgoffset.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/x64dbgoffset.png" | relative_url }}){: .align-center}
 
 Ya con el offset calculado, en `ghidra` nos dirigimos a la creación del objeto que nos interesa (puede ser cuando hace el call, o incluso cuando dentro de la subrutina) y anotamos la dirección:
 
-![UTMP]({{ "/images/MalevolentModMaker/ghidranewcypher.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/ghidranewcypher.png" | relative_url }}){: .align-center}
 
 Luego, en el debugger; sólo haría falta agregar un _Break Point_ con `F2` en la misma dirección (aplicando el offset, debería verse exactamente la misma instrucción del assembly).
 
 Ejecutamos en el debugger y...
 
-![UTMP]({{ "/images/MalevolentModMaker/x64dbgnewcipher.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/x64dbgnewcipher.png" | relative_url }}){: .align-center}
 
 En el `RAX` veremos el key.
 
@@ -372,7 +372,7 @@ no value specified for "Hex-encoded 32-byte decryption keyflag provided but not 
 
 Así que sólo tenemos que transformar el string a Hexadecimal.
 
-![UTMP]({{ "/images/MalevolentModMaker/Q10.png" | relative_url }})
+![UTMP]({{ "/images/MalevolentModMaker/Q10.png" | relative_url }}){: .align-center}
 
 
 ```BASH

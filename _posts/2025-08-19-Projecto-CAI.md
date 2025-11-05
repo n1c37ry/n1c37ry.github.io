@@ -7,7 +7,7 @@ published: true
 
 __CAI__ o _Cybersecurity IA_ es un proyecto muy interesante propietario de _aliasrobotics_, su [repositorio de Github](https://github.com/aliasrobotics/cai) está muy bien documentado y da muy buenas pautas a lo que son los agentes y cómo este proyecto los utiliza para poder hacer un framework de seguridad con IA bastante sólido. Invito a todos a darle un vistazo.
 
-![UTMP]({{ "/images/CAI/GitHubTitle.png" | relative_url }})
+![UTMP]({{ "/images/CAI/GitHubTitle.png" | relative_url }}){: .align-center}
 
 # Entendiendo CAI
 
@@ -75,7 +75,7 @@ CAI_STREAM=false
 
 Todo depende de qué modelo elijas, si no utilizas una plataforma, deja el espacio de las comillas vacío justo como la de `OLLAMA`; en cualquier caso, necesitas levantar tú mismo `litellm` para lograr que funcione el framework, si no, te arrojará problemas relacionados con algo de `error ... /key/generate` o algo parecido. 
 
-![UTMP]({{ "/images/CAI/errorlitellm.jpeg" | relative_url }})
+![UTMP]({{ "/images/CAI/errorlitellm.jpeg" | relative_url }}){: .align-center}
 
 Entonces:
 
@@ -89,7 +89,7 @@ Entonces:
 8. Selecciona __el mismo modelo__ que seleccionaste en `litellm` con `/model gpt-3.5-turbo`
 9. E inicializa un agent según la tarea (tal y como dice el menú) con: `/agent ...`
 
-![UTMP]({{ "/images/CAI/agent.jpeg" | relative_url }})
+![UTMP]({{ "/images/CAI/agent.jpeg" | relative_url }}){: .align-center}
 
 ## Aclaraciones y conclusiones.
 

@@ -7,7 +7,7 @@ published: true
 
 Las máquinas (de HackTheBox) son retos gamificados enfocados a __Red Team__ o por lo menos, __seguridad ofensiva__, donde tendrás que intentar __tomar control total__ de la máquina que tengas adelante abusando de vulnerabilidades practicando todo el proceso de _pentesting_ como la _obtención de información_, _explotación_ para obtener un _Foothold_, y luego seguir con generalmente, _movimiento lateral_ y finalmente, la _escalada de privilegios_; Estos laboratorios son especialmente útiles para probar conceptos de seguridad ofensiva ya que tendrás que abusar de ellos para seguir avanzando.
 
-![UTMP]({{ "/images/TheFrizz/logo.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen TheFrizz
 
@@ -109,11 +109,11 @@ Si presan atención al _Did not follow redirect to_ viene un nombre de dominio, 
 
 Y ya configurado, podremos acceder al servidor web.
 
-![UTMP]({{ "/images/TheFrizz/web.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/web.png" | relative_url }}){: .align-center}
 
 Enumerando poco a poco la página, encontramos una nota con la versión del framework de la página en `http://frizzdc.frizz.htb/Gibbon-LMS/#`
 
-![UTMP]({{ "/images/TheFrizz/gibbonv.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/gibbonv.png" | relative_url }}){: .align-center}
 
 
 ### Explotación CVE-2023-45878
@@ -136,7 +136,7 @@ PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7Pz4K
 
 Y luego confirmamos el endpoint vulnerable con curl, podemos enviar una petición tipo `POST` o una `GET`, en cualquier caso, deberíamos de notar las diferentes respuestas si existe o no:
 
-![UTMP]({{ "/images/TheFrizz/curl.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/curl.png" | relative_url }}){: .align-center}
 
 Como podemos notar, gracias a que no recibimos respuesta del servidor (no fue un 404), es un indicativo que el recurso existe, pero no devuelve nada y eso es hasta esperado.
 
@@ -152,11 +152,11 @@ Ahora; ya con todo, podemos explotar el servicio y obtener una web shell, Utiliz
 
 Y podremos confirmar que se ha subido si visitamos el archivo desde __el root de la instalación gibbon__:
 
-![UTMP]({{ "/images/TheFrizz/created.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/created.png" | relative_url }}){: .align-center}
 
 Y para usarla, sólo necesitamos utilizar el parámetro `cmd` y el comando a utilizar:
 
-![UTMP]({{ "/images/TheFrizz/executed.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/executed.png" | relative_url }}){: .align-center}
 
 ### Enumeración y Dumpeo de MySQL
 
@@ -225,7 +225,7 @@ $databaseName = 'gibbon';
 
 Dicho y hecho, tenemos credenciales para la base de datos; ahora, sólo tenemos que ubicarla; Por lo general, la encontrarás en `C:\xampp\mysql`; esto para utilizar el ejecutable y poder ejecutar comandos para escarbar más credenciales:
 
-![UTMP]({{ "/images/TheFrizz/dir.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/dir.png" | relative_url }}){: .align-center}
 
 Ya con el ejecutable, nos podemos conectar a mysql; ahora, recuerda lo que dije de la sesión interactiva, no funciona como una shell totalmente, por lo que no nos permitirá tener una sesión interactiva en mysql; pero sí que hay una forma de hacer consultas:
 
@@ -258,7 +258,7 @@ Como notarás, son un montón de tablas, lo que podemos hacer es buscar en tabla
 
 Si hacemos un describe veremos que a parte de ser un montón de columnas, también hay unas que nos pueden interesar mucho:
 
-![UTMP]({{ "/images/TheFrizz/describe.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/describe.png" | relative_url }}){: .align-center}
 
 Entonces, hacemos la consulta para que nos muestre sólo esos campos:
 
@@ -380,7 +380,7 @@ Mode                 LastWriteTime         Length Name
 
 Mientras enumeramos el sistema, notaremos tarde o temprano `C:\$RECYCLE.BIN` (para listarlo, utiliza `ls -force` desde `C:\`) y dentro de él, encontraremos 3 archivos:
 
-![UTMP]({{ "/images/TheFrizz/recycle.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/recycle.png" | relative_url }}){: .align-center}
 
 Pero en realidad, 2 de ellos, son _básicamente el mismo_: Cuando se __elimina un archivo__ y es mandado al recycle bin, se renombra __con un prefijo $R/$I__ El archivo R es en sí, el archivo borrado, mientras que el archivo I, es la información de ese archivo; Si queremos saber más detalles del archivo borrado, sólo tenemos que ver el contenido del `$I`:
 
@@ -478,7 +478,7 @@ Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies
 
 Y enumerando como siempre, tenemos un grupo muy interesante:
 
-![UTMP]({{ "/images/TheFrizz/PE.png" | relative_url }})
+![UTMP]({{ "/images/TheFrizz/PE.png" | relative_url }}){: .align-center}
 
 `Group Policy Creator Owners` Que garantiza el crear Objetos de Políticas de Grupo; abusable para escalar privilegios. El path es el siguiente: Crear una política, linkearla con el dominio; y utilizando `SharpGPOAbuse` podemos ejecutar una tarea para obtener acceso (si no lo tienen, lo pueden [descargar acá](https://github.com/FSecureLABS/SharpGPOAbuse)). Solo es copiar y pegar el ejecutable en su directorio actual y montan un servidor http para que puedan descargarlo de forma remota (o utilizar scp).
 

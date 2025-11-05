@@ -7,7 +7,7 @@ published: true
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _Malware Analysis_  que se enfocan en el __análsis de artefactos y archivos maliciosos__ con el objetivo de entender su funcionalidad, origen e impacto, para poder crear medidas de detección mejorando la seguridad del entorno.
 
-![UTMP]({{ "/images/Lockpick3/logo.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen Lockpick3.0
 
@@ -102,7 +102,7 @@ Ahora, empezamos con el análisis de código:
 
 Abrimos `ghidra` y dejamos que haga el análisis sobre el archivo. Cuando ya lo haya hecho; nos dirigiremos a entry (Me estaré apoyando mucho en las imágenes, algunas tendrán nombres distintos gracias a que las renombré)
 
-![UTMP]({{ "/images/Lockpick3/libcstartmain.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/libcstartmain.png" | relative_url }}){: .align-center}
 
 Iniciamos con la primera función `__libc_start_main`, en C, esta librería es importante ya que es la que inicia toda la iniciación necesaria para el call hacia main.
 
@@ -119,27 +119,27 @@ int __libc_start_main(int (*main) (int, char * *, char * *), int argc, char * * 
 
 Entonces es lógico iniciar por el `init_main`; si buscamos algo útil, nos encontraremos con un pequeño loop while:
 
-![UTMP]({{ "/images/Lockpick3/init_main.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/init_main.png" | relative_url }}){: .align-center}
 
 Lo que hace a grandes rasgos es que inicializa el contenido de lo que esté en el arreglo `__DT_INIT_ARRAY` y si observamos a dónde apunta...
 
-![UTMP]({{ "/images/Lockpick3/init_main_init_o.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/init_main_init_o.png" | relative_url }}){: .align-center}
 
 Y si seguimos a dónde nos lleva, encontramos un bloque como este:
 
-![UTMP]({{ "/images/Lockpick3/init_o.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/init_o.png" | relative_url }}){: .align-center}
 
 Observa dónde indiqué, el `_ITM_registerTMCloneTable` es una instrucción para preparar y registrar memoria transaccional; (El cual protege a un recurso de un fallo de conficto cuando están interactuando 2 o más hilos de ejecución con un mismo recurso). Así, que no tenemos nada malicioso en esta parte; por lo que volvemos al punto de entrada (¿no está de más revisar todo no? hahaha).
 
 Al entrar a la función mapeada como `main`; se llama múltiples veces a la misma función así que podemos verificarla.
 
-![UTMP]({{ "/images/Lockpick3/XOR_main.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/XOR_main.png" | relative_url }}){: .align-center}
 
 Entrando notamos un `^` que indica una operación XOR; esto a primera vista y a grandes rasgos puedes llegar a esta conclusión:
 
 _La función llama a un `for loop` que se ejecuta `param2` veces; la operación XOR decodifica lo que esté en la dirección `param_1`+`counter` utilizando la llave contenida en `param3`+`counter`_ así que estamos tentando la respuesta; si observas en la definición de la función, notarás el  valor de `param_3` como un long; así que volvemos una función atrás para renombrar para aclarar cómo se llama la función:
 
-![UTMP]({{ "/images/Lockpick3/XOR.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/XOR.png" | relative_url }}){: .align-center}
 
 Entonces, concatenando lo que hay dentro de la función puedes interpretarlo como la imagen; la `xorKey` y su `size`; los primeros argumentos recordemos que es la dirección del primer byte a decodificar y el siguiente argumento, cuántos decodificar; notarán el `& 0xffffffff` que es una máscara de bytes; el cual como sabemos, `xorKey_size` puede ser un long, y esta máscara asegura que sea un tamaño de 32bits sin signo.
 
@@ -221,7 +221,7 @@ Para encontrar el API endpoint, seguramente tendremos que desencriptar las caden
 
 1. Dirigirse a la dirección de memoria del primer argumento de la llamada
 
-![UTMP]({{ "/images/Lockpick3/XOR_D_1.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/XOR_D_1.png" | relative_url }}){: .align-center}
 
 2. Copiar todos los datos y pegarlos en un archivo (limpiando lo de hasta arriba para dejar sólo los hexadecimales y las direcciones)
 
@@ -248,7 +248,7 @@ Para encontrar el API endpoint, seguramente tendremos que desencriptar las caden
 
 4. Llevarlo a cyberchef; para transformarlo de hex aplicando XOR con la clave 
 
-![UTMP]({{ "/images/Lockpick3/cyberchef_1.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/cyberchef_1.png" | relative_url }}){: .align-center}
 
 5. Repetir con las funciones.
 
@@ -256,7 +256,7 @@ Repetitivo, algo manual pero eficaz diría yo.
 
 Luego de que estés desencriptando todo, verás que obtendrás algunas respuestas futuras, pero las tocaremos en su momento; por el momento necesitaremos seguir examinando el código para encontrar la respuesta; justo después de los bloques obfuscados, nos encontracmos con una función:
 
-![UTMP]({{ "/images/Lockpick3/Q3_1.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/Q3_1.png" | relative_url }}){: .align-center}
 
 Así que la examinamos y un vistazo rápido nos revela el endpoint; y justo antes, está concatenando el dominio dentro de las cadenas que estuvimos obfuscando, así que esa sería la respuesta.
 
@@ -270,20 +270,20 @@ Ahora si observamos bien, podemos encontrar un pequeño `rabbit hole` para el an
 
 Sabemos que la función en la que estamos, sirve para obtener el `key`, es fácil concluirlo si observamos los strings a los que apuntan los datos:
 
-![UTMP]({{ "/images/Lockpick3/rabbitQ4.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/rabbitQ4.png" | relative_url }}){: .align-center}
 
 Si continuamos bajando, podemos ver strings interesantes:
 
 
-![UTMP]({{ "/images/Lockpick3/rabbitQ4_1.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/rabbitQ4_1.png" | relative_url }}){: .align-center}
 
 Y pronto, veremos un string, claramente sospechoso que apunta a nuestra respuesta:
 
-![UTMP]({{ "/images/Lockpick3/rabbitQ4_2.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/rabbitQ4_2.png" | relative_url }}){: .align-center}
 
 Podemos seguir desde donde fue llamada y sabremos que estaremos en la función que se utiliza para subir archivos.
 
-![UTMP]({{ "/images/Lockpick3/Q4_1.png" | relative_url }})
+![UTMP]({{ "/images/Lockpick3/Q4_1.png" | relative_url }}){: .align-center}
 
 Siendo ahora esta, nuestra respuesta:
 

@@ -9,7 +9,7 @@ published: true
 
 Cabe aclarar que este es son __3 partes de 5 del CTF, así que será algo largo__.
 
-![UTMP]({{ "/images/Holmes/logo.jpg" | relative_url }})
+![UTMP]({{ "/images/Holmes/logo.jpg" | relative_url }}){: .align-center}
 
 ### Descripción
 
@@ -152,7 +152,7 @@ Notas el patrón?: `J4: 4A4D`
 
 Aquí usamos la primera plataforma.
 
-![UTMP]({{ "/images/Holmes/J5.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J5.png" | relative_url }}){: .align-center}
 
 Notarás los grafos conectados a `JM`, el threat actor, donde está directamente relacionado a `J5: 5` Campañas
 
@@ -160,7 +160,7 @@ Notarás los grafos conectados a `JM`, el threat actor, donde está directamente
 
 Cada campaña está unida relacionada a otros recursos como herramientas, Organizaciones, Infraestructura, Indicadores y otros detalles como el siguiente:
 
-![UTMP]({{ "/images/Holmes/J6.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J6.png" | relative_url }}){: .align-center}
 
 Por cada campaña, sólo hay que contar las herramientas y el malware relacionado, donde notarás que en sólo una campaña se utiliza sólo el malware; por lo que hay sólo `J6: 9` herramientas y malwares
 
@@ -168,7 +168,7 @@ Por cada campaña, sólo hay que contar las herramientas y el malware relacionad
 
 Para confirmar que es el mismo malware, podemos revisar los indicadores linkeados al malware de cada campaña viendo sus detalles a un lado: 
 
-![UTMP]({{ "/images/Holmes/J7.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J7.png" | relative_url }}){: .align-center}
 
 Donde en efecto, el malware tiene la misma firma `sha256`: `J7: 7477c4f5e6d7c8b9a0f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b7a8f9e0d17477`
 
@@ -176,7 +176,7 @@ Donde en efecto, el malware tiene la misma firma `sha256`: `J7: 7477c4f5e6d7c8b9
 
 Conectándonos al segundo portal e ingresando, se nos dará una interface a la que le podemos ingresar el `sha256` encontrado, mostrándonos más información:
 
-![UTMP]({{ "/images/Holmes/J8.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J8.png" | relative_url }}){: .align-center}
 
 Si observamos las comunicaciones de red, notaremos la IP del `C2 Server` `J8: 74.77.74.77`
 
@@ -184,7 +184,7 @@ Si observamos las comunicaciones de red, notaremos la IP del `C2 Server` `J8: 74
 
 Si vemos los detalles del malware, podremos ver las operaciones hechas por el mismo, y una de ellas, nos dá la acción explícita:
 
-![UTMP]({{ "/images/Holmes/J9.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J9.png" | relative_url }}){: .align-center}
 
 `J9: /opt/lilnunc/implant/4a4d_persistence.sh`
 
@@ -193,7 +193,7 @@ Si vemos los detalles del malware, podremos ver las operaciones hechas por el mi
 
 En `CogNet Scanner` sólo tenemos que ingresar la `IP` encontrada para encontrar mayor información, y como indica la tarea, podemos ver cuántos puertos tiene abiertos:
 
-![UTMP]({{ "/images/Holmes/J10.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J10.png" | relative_url }}){: .align-center}
 
 `J10: 11`
 
@@ -201,7 +201,7 @@ En `CogNet Scanner` sólo tenemos que ingresar la `IP` encontrada para encontrar
 
 Al ver los detalles de la IP, se nos muestra la organización relacionada.
 
-![UTMP]({{ "/images/Holmes/J11.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J11.png" | relative_url }}){: .align-center}
 
 `J11: SenseShield MSP`
 
@@ -209,7 +209,7 @@ Al ver los detalles de la IP, se nos muestra la organización relacionada.
 
 Si vemos la pestaña `Services` en los mismos detalles de la IP, podemos ver exáctamente cuál es el string que menciona:
 
-![UTMP]({{ "/images/Holmes/J12.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/J12.png" | relative_url }}){: .align-center}
 
 `J12: He's a ghost I carry, not to haunt me, but to hold me together - NULLINC REVENGE`
 
@@ -230,7 +230,7 @@ Para ello, copia todo el contenido del `net9` resultante de la descarga del `Get
 
 Ahora que podemos abrirlo, seleccionamos el source (nuestra imagen forense) y lo procesamos en `Modulos` con la `!EZParser` y seleccionar el destination en una carpeta para examinarla después del triaje (__borrará el contenido del destino por defecto__).
 
-![UTMP]({{ "/images/Holmes/KAPE.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/KAPE.png" | relative_url }}){: .align-center}
 
 Ahora sí, resultará en un triaje mucho más limpio en el destino y podemos empezar a examinar el escenario
 
@@ -238,13 +238,13 @@ Ahora sí, resultará en un triaje mucho más limpio en el destino y podemos emp
 
 Claramente, de tratarse con tráfico, necesitamos examinar la captura `pcapng` con wireshark. Y... ¿Qué deberíamos buscar?, con sistemas MSP, muchas veces la información viaja por en formato JSON y HTTP (no es ley, pero sí es lo más común en implementaciones de MSP), por lo que siguiendo esta pequeña hipótesis, filtramos por tráfico `http`:
 
-![UTMP]({{ "/images/Holmes/C2J1.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J1.png" | relative_url }}){: .align-center}
 
 Ahora, examinando los paquetes; podemos buscar el string `Host` como cabecera `http`, ¿con qué objetivo? __Para saber exáctamente cuál host es MSP-HELPDESK-AI__
 
 Si examinamos uno por uno, deberemos avistar tarde o temprano la cabecera con el `Host` que buscamos
 
-![UTMP]({{ "/images/Holmes/C2J1-1.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J1-1.png" | relative_url }}){: .align-center}
 
 Entonces, con este campo identificado, podemos utilizarlo como filtro:
 
@@ -254,11 +254,11 @@ Entonces, con este campo identificado, podemos utilizarlo como filtro:
 
 Con el filtro, podemos notar que los `source ip` están ordenados por tiempo, lo que nos ahorra la tarea de ordenarlos y buscar pistas de las conversaciones. Para examinarlas, basta con dar click derecho sobre el paquete > `Follow` > `HTTP Stream`; Ahora, siguiendo las requests, en la primera coversación no encontraremos mucho, mientras que en la segunda IP listada... podremos encontrar algo un poco más interesante
 
-![UTMP]({{ "/images/Holmes/C2J1-3.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J1-3.png" | relative_url }}){: .align-center}
 
 Se hace pasar por `WATSON` (que es una entidad muy importante en la trama); pero poco después tenemos razones certeras para correlacionar la actividad como maliciosa:
 
-![UTMP]({{ "/images/Holmes/C2J1-4.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J1-4.png" | relative_url }}){: .align-center}
 
 Tras este intento, tenemos ya la razón suficiente de que se trata de un ataque desde la ip `J1: 10.0.69.45`
 
@@ -266,7 +266,7 @@ Tras este intento, tenemos ya la razón suficiente de que se trata de un ataque 
 
 Ahora, sabiendo desde dónde se originó, debemos buscar ahora, toda comunicación surgida de ella; con algo de suerte encontraremos algún protocolo que anuncie su hostname...
 
-![UTMP]({{ "/images/Holmes/C2J2.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J2.png" | relative_url }}){: .align-center}
 
 Donde dicho y hecho, es el primer paquete que sale, con el anuncio de: `J2: WATSON-ALPHA-2`
 
@@ -280,11 +280,11 @@ Para esto, volvemos a la primera búsqueda que realizamos:
 
 Para identificar dónde se inició la conversación, basta con buscar el endpoint del chatbot `/api/messages` (donde relacione la IP encontrada)
 
-![UTMP]({{ "/images/Holmes/C2J3-1.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J3-1.png" | relative_url }}){: .align-center}
 
 Y siguiendo el `HTTP Stream` encontraremos el primer mensaje de la conversación `J3: Hello Old Friend`
 
-![UTMP]({{ "/images/Holmes/C2J3.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J3.png" | relative_url }}){: .align-center}
 
 ### J4: When did the attacker's prompt injection attack make MSP-HELPDESK-AI leak remote management tool info? (YYYY-MM-DD HH:MM:SS)
 
@@ -296,7 +296,7 @@ Si seguimos la conversación proveniente de la IP identificada, veremos varios i
 
 El ataque resulta exitoso; en cada respuesta del servidor, indica también el `id` y el `timestamp`: `j4: 2025-08-19 12:02:06`
 
-![UTMP]({{ "/images/Holmes/C2J4.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J4.png" | relative_url }}){: .align-center}
 
 
 ### J5: What is the Remote management tool Device ID and password? (IDwithoutspace:Password)
@@ -307,7 +307,7 @@ En la misma respuesta del servidor, puede identificarse el usuario y la contrase
 
 En el siguiente `HTTP Stream` es cuando `JM` se despide, __por el momento__: `J6: JM WILL BE BACK` 
 
-![UTMP]({{ "/images/Holmes/C2J6.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J6.png" | relative_url }}){: .align-center}
 
 ### J7: When did the attacker remotely access Cogwork Central Workstation? (YYYY-MM-DD HH:MM:SS)
 
@@ -315,7 +315,7 @@ Ahora, para examinar el KAPE, utilizaremos `Autopsy`, que nos permite entre una 
 
 Para conexiones remotas comunes, podemos considerar `RDP`, `winrm`... Pero, también podemos tomar en cuenta qué archivos se encuentran instalados en la máquina; en este caso, el KAPE nos muestra dentro del `Program Files` a nuestra querida herramienta `Team Viewer`. Si examinamos `Connections_Incomming.txt` y tomamos en cuenta el `TimeStamp` en el que consiguió credenciales, podemos inferir un nombre muy obvio (que también nos responde la siguiente pregunta):
 
-![UTMP]({{ "/images/Holmes/C2J7.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J7.png" | relative_url }}){: .align-center}
 
 ```js
 J7: 2025-08-20 09:58:25
@@ -333,17 +333,17 @@ En la misma carpeta, existe otro log: `TeamViewer15_Logfile.log`, dentro de él 
 
 El primer indicador que nos dice que nos estamos acercando es el siguiente:
 
-![UTMP]({{ "/images/Holmes/C2J9-1.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J9-1.png" | relative_url }}){: .align-center}
 
 (Quizá ser más fácil si buscas el string, pero bueno), Continuamos con cuidado y encontramos nuestra respuesta: `J9: 192.168.69.213`
 
-![UTMP]({{ "/images/Holmes/C2J9.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J9.png" | relative_url }}){: .align-center}
 
 ### J10: The attacker brought some tools to the compromised workstation to achieve its objectives. Under which path were these tools staged? (C:\FOLDER\PATH\)
 
 Aquí una de las ventajas de Autopsy, si inspeccionamos los documentos recientes podemos encontrar varios archivos conglomerados dentro de `C\Windows\Temp` (Ubicación común para el deployment del toolset ofensivo) donde podemos tener fuertes sospechas gracias los nombres `dump.txt`, `credhistview` `everything`... entre otros
 
-![UTMP]({{ "/images/Holmes/C2J10.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J10.png" | relative_url }}){: .align-center}
 
 ```js
 C:\Windows\Temp\safe\
@@ -355,7 +355,7 @@ Ahora sí, podemos importar los resultados del triaje del `KAPE` a `autopsy` (Es
 
 Tarde o temprano nos encontraremos con otro string más directo a lo que buscamos `webbrowserpassview`; si buscamos tal string, encontramos coincidencias en el `UserAssist`:
 
-![UTMP]({{ "/images/Holmes/C2J12.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J12.png" | relative_url }}){: .align-center}
 
 Junto con su tiempo de ejecución: `J11:8000`ms
 
@@ -450,7 +450,7 @@ Hace rato puntualizamos un archivo descargado y que no hemos puntualizado aún, 
 
 Si hacemos una búsqueda en la imagen forense, indicará una entrada en el `SOFTWARE`
 
-![UTMP]({{ "/images/Holmes/C2J17-1.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J17-1.png" | relative_url }}){: .align-center}
 
 Así que podremos utilizar `REcmd` para extraer los contenidos del registro que contengan justo este string:
 
@@ -464,7 +464,7 @@ At least one transaction log was applied. Sequence numbers have been updated to 
 Una `Key` de `WinLogon` utilizando el valor de `Userinit`, que aunque nos resuelve qué es lo que hace (la siguiente pregunta), falta aún el tiempo, y para ello, utilizamos `Registry Explorer` pues de ahí podemos obtener el momento en el que fue agregado: `J16: 2025-08-20 10:13:57`
 
 
-![UTMP]({{ "/images/Holmes/C2J16.png" | relative_url }})
+![UTMP]({{ "/images/Holmes/C2J16.png" | relative_url }}){: .align-center}
 
 
 ### J17: What is the MITRE ID of the persistence subtechnique? (Txxxx.xxx)

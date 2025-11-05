@@ -52,23 +52,23 @@ Será un post algo largo, pero valdrá la pena una vez implementado ya que con e
 
 Primero; necesitamos descargar `Raspberry Pi Imager` desde la [página oficial](https://www.raspberrypi.com/software/)
 
-![UTMP]({{ "/images/GatewayP/Raspbdownload.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/Raspbdownload.png" | relative_url }}){: .align-center}
 
 No tiene complicación; claro, conectamos nuestra __memoria Micro USB__ con el __adaptador Micro USB -> USB__
 
 Y seleccionamos el modelo de la RPI que corresponda y el sistema operativo al oficial de la Raspberry
 
-![UTMP]({{ "/images/GatewayP/Pimager.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/Pimager.png" | relative_url }}){: .align-center}
 
 Después de seleccionar el almacenamiento de la USB, modificamos algunos detalles de la configuración:
 
 Primero, en la pestaña `General` modificamos según plazca; un hostname, el nombre y contraseña, Configuramos el `Wireless LAN` ya que nos conectaremos mediante WiFi primero y luego veremos lo de conectar el ethernet.
 
-![UTMP]({{ "/images/GatewayP/General_Pimager.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/General_Pimager.png" | relative_url }}){: .align-center}
 
 Para tener una seguridad mayor al momento de utilizar SSH, recomiendo sólo permitir la `public-key`, de igual forma, puedes usar contraseña para la autenticación y veremos una forma para generar la key en la RPI e importarla a nuestra computadora para utilizar esa `id rsa` y no la `public-key`; esto nos dará la ventaja de que si cambiamos de dispositivo, sólo bastará con importar la `id rsa` a este equipo nuevo.
 
-![UTMP]({{ "/images/GatewayP/SSH_Pimager.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/SSH_Pimager.png" | relative_url }}){: .align-center}
 
 Bien, una vez configurado, continuaremos con la imagen y una vez terminado el proceso, conectamos la RPI y la `Micro USB`. Lo siguiente será encontrar la RPI en la red WiFi; para esto puedes ingresar al modem y buscarla según el hostname o el método que prefieras (hay más sencillos!)
 
@@ -121,11 +121,11 @@ Veremos la GUI donde también podremos añadir otra red de ser necesario, pero d
 
 Seleccionamos `Edit a connection` y deberíamos ver `Wired connection` o algo parecido y seleccionamos `Edit`
 
-![UTMP]({{ "/images/GatewayP/nmtui.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/nmtui.png" | relative_url }}){: .align-center}
 
 Una vez dentro, sólo debemos modificar el campo `IPv4 CONFIGURATION` a `Manual` y asignarle una dirección IP a esta interface con la máscara que querramos la red interna:
 
-![UTMP]({{ "/images/GatewayP/ethernetnmtui.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/ethernetnmtui.png" | relative_url }}){: .align-center}
 
 En nuestra máquina o PC con la que estamos configurando o bien, usaremos esta red, debemos hacer algo similar: 
 
@@ -163,7 +163,7 @@ Una vez terminada la instalación, indicará una contraseña y accedemos al port
 
 Para administrar las listas, basta con dirigirse a la pestaña `List`, y veremos una interface bastante intuitiva:
 
-![UTMP]({{ "/images/GatewayP/PiHoleList.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/PiHoleList.png" | relative_url }}){: .align-center}
 
 Sólo hace falta indicar una lista de dominios para aplicar el `blocklist`. Los que más recomiendo son de los siguientes repositorios:
 
@@ -234,7 +234,7 @@ Para forzar al DNS de utilizar `Unbound` necesitamos modificar el `DNS` de la `P
 
 En el portal de `PiHole` nos dirigimos a `Settings` > `DNS`, deselecciona todas las opciones del `Upstream DNS Servers` y escribimos `127.0.0.1#5335` en los `Custom DNS servers`
 
-![UTMP]({{ "/images/GatewayP/piholeunbound.png" | relative_url }})
+![UTMP]({{ "/images/GatewayP/piholeunbound.png" | relative_url }}){: .align-center}
 
 Para probarlo, puedes hacerlo con `dig` desde la RPI:
 

@@ -7,7 +7,7 @@ published: true
 
 Las máquinas (de HackTheBox) son retos gamificados enfocados a __Red Team__ o por lo menos, __seguridad ofensiva__, donde tendrás que intentar __tomar control total__ de la máquina que tengas adelante abusando de vulnerabilidades practicando todo el proceso de _pentesting_ como la _obtención de información_, _explotación_ para obtener un _Foothold_, y luego seguir con generalmente, _movimiento lateral_ y finalmente, la _escalada de privilegios_; Estos laboratorios son especialmente útiles para probar conceptos de seguridad ofensiva ya que tendrás que abusar de ellos para seguir avanzando.
 
-![UTMP]({{ "/images/darkzero/logo.png" | relative_url }})
+![UTMP]({{ "/images/darkzero/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen DarkZero
 
@@ -220,7 +220,7 @@ Este último comando, va a obtener la información necesaria y la ingresará a u
 
 En una búsqueda, veremos una vía potencial o incluso, una pista de lo que sigue:
 
-![UTMP]({{ "/images/darkzero/bloodhound.png" | relative_url }})
+![UTMP]({{ "/images/darkzero/bloodhound.png" | relative_url }}){: .align-center}
 
 Esto indica que hay un trust bilateral de 2 forests `darkzero.htb` (En el que está el DC Objetivo) y `darkzero.ext`; y esto es muy dependiendo de la configuración, pero el takeover de uno, puede indicar el takeover del otro, así que podemos empezar a buscar cómo saltar a este segundo `DC`.
 

@@ -7,7 +7,7 @@ published: true
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _Malware Analysis_ que se enfocan en el __análsis de malware y archivos maliciosos__ donde habrá que descubrir las características del artefacto malicioso para averiguar qué es lo que hace.
 
-![UTMP]({{ "/images/ElectricBreeze/logo.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen ElectricBreeze-2
 
@@ -35,11 +35,11 @@ sha256:4bcedac20a75e8f8833f4725adfc87577c32990c3783bf6c743f14599a176c37
 
 Nos regresará un hit:
 
-![UTMP]({{ "/images/ElectricBreeze/Hit1.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Hit1.png" | relative_url }}){: .align-center}
 
 Y dando click en el hash, podremos ver sus características y la opción de descargar la muestra, por lo que sólo tendremos que copiar el link de `Descargar Muestra`:
 
-![UTMP]({{ "/images/ElectricBreeze/Q1.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q1.png" | relative_url }}){: .align-center}
 
 ```bash
 Q1: https://bazaar.abuse.ch/download/4bcedac20a75e8f8833f4725adfc87577c32990c3783bf6c743f14599a176c37/
@@ -49,7 +49,7 @@ Q1: https://bazaar.abuse.ch/download/4bcedac20a75e8f8833f4725adfc87577c32990c378
 
 Antes de dar con la respuesta es importante puntualizar algo, debemos estar concientes de que las muestras que descargamos tienen el potencial de comprometer nuestro sistema y a parte de ello, se contribuyen con medidas adicionales (a veces) para tratar de evitar este escenario; se quitan las extensiones y se comprimen con contraseña, esto __que se considera estandar en la industria__ una clase de recordatorio de que _estás trabajando con una muestra de malware y debe considerarse peligrosa a la medida de lo posible_ (Aunque otras veces, __puede no ser la misma__)
 
-![UTMP]({{ "/images/ElectricBreeze/Q2.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q2.png" | relative_url }}){: .align-center}
 
 ```bash
 Q2: infected
@@ -65,7 +65,7 @@ Descargando el archivo, podemos moverlo a un directorio donde podamos organizarn
 
 Y listando, podremos ver el contenido y la respuesta:
 
-![UTMP]({{ "/images/ElectricBreeze/Q3.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q3.png" | relative_url }}){: .align-center}
 
 ```javascript
 Q3: .jar
@@ -84,7 +84,7 @@ strings 4bcedac20a75e8f8833f4725adfc87577c32990c3783bf6c743f14599a176c37.jar | g
 
 Y nos saldrá un ouput reducido, donde si observamos cada uno, el que salta a la vista tiene un nombre efectivamente sospechoso... ¿será bueno que algo tendría el string `memShell`?
 
-![UTMP]({{ "/images/ElectricBreeze/Q4.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q4.png" | relative_url }}){: .align-center}
 
 ```bash
 Q4: Director_tomcat_memShell
@@ -117,7 +117,7 @@ META-INF
 
 Dado que el archivo sospechoso se encuentra dentro de `Director_tomcat_memShell` tenemos que enumerar ambos, pero en el `.xml`, encontramos algo en particular:
 
-![UTMP]({{ "/images/ElectricBreeze/Q5.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q5.png" | relative_url }}){: .align-center}
 
 ```bash
 Q5: pom.xml
@@ -128,7 +128,7 @@ Q5: pom.xml
 Para esto, sencillamente sólo tenemos que copiar y pegar:
 
 
-![UTMP]({{ "/images/ElectricBreeze/Q6.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q6.png" | relative_url }}){: .align-center}
 
 ```bash
 Q6: Chinese
@@ -146,13 +146,13 @@ Q7: Check for the latest version
 
 Revisando el `.xml` puedes dar con la respuesta, sólo habrá que ver el campo name del archivo:
 
-![UTMP]({{ "/images/ElectricBreeze/Q8.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q8.png" | relative_url }}){: .align-center}
 
 #### Q9: The VersaMem web shell works by hooking Tomcat. Which file holds the functionality to accomplish this?
 
 Ahora, del XML, podemos extraer un poco de más información, ¿a qué funciones llama?:
 
-![UTMP]({{ "/images/ElectricBreeze/Lxml.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Lxml.png" | relative_url }}){: .align-center}
 
 Esto indica una ruta dentro del `.jar` la cual apunta a la clase Main que guardará todas las funcionalidades.
 
@@ -183,7 +183,7 @@ java -jar ~/Documents/Tools/uncategorized/jd-gui/jd-gui-1.6.6.jar TestMain.class
 
 Navegando al `TestMain.class` podremos encontrar la función de entrada, más técnicamente el inyector y con ello, nuestra respuesta:
 
-![UTMP]({{ "/images/ElectricBreeze/Q10.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q10.png" | relative_url }}){: .align-center}
 
 ```bash 
 Q10: pgrep
@@ -194,15 +194,15 @@ Q10: pgrep
 
 Para esta pregunta, es un poco de seguir el flujo de la ejecución; _imaginar visualmente cómo se ejecuta_ te ayudará a entender a fondo qué es lo que hace, Entonces si iniciamos en Main y bajamos poco a poco, la función llama a otra en la misma clase:
 
-![UTMP]({{ "/images/ElectricBreeze/T1.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/T1.png" | relative_url }}){: .align-center}
 
 Siguiendo el flujo, veremos que llega a `TestMain` que rápidamente, inicia la clase `init`; luego `init` llamará a `config.init`
 
-![UTMP]({{ "/images/ElectricBreeze/T2.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/T2.png" | relative_url }}){: .align-center}
 
 Cuando la ejecución alcanza la clase `Config`, que a forma general, empieza a configurar dinámicamente guardando parámetros y parseando cadenas; pero nada más allá, a lo que si continuamos viajando por las clases, parece repetitivo, y no llama a nada más fuera de sí.
 
-![UTMP]({{ "/images/ElectricBreeze/T3.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/T3.png" | relative_url }}){: .align-center}
 
 Esta parte, concluimos que devuelve algún valor y continua la ejecución antes de ser llamada: justo en `init` en el `Main`. La siguiente clase que llamará es justo... 
 
@@ -214,11 +214,11 @@ Que crea un objeto `CoreClassFileTransformer`
 
 Y vemos las siguientes 2 clases:
 
-![UTMP]({{ "/images/ElectricBreeze/T4.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/T4.png" | relative_url }}){: .align-center}
 
 Si observamos la clase `WriteTestTransformer` y su contenido, notaremos el string `insertShell` y justo después, strings interesantes relacionados con manejo de sesiones http:
 
-![UTMP]({{ "/images/ElectricBreeze/Q11.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q11.png" | relative_url }}){: .align-center}
 
 Lo que nos da una pista sólida de que esta es la clase que buscamos.
 
@@ -244,7 +244,7 @@ Desde aquí, podemos hacer algo para __facilitar el análisis__; si bien podemos
 
 Y un simple cat, mostrará un formato mucho más cómodo de trabajar
 
-![UTMP]({{ "/images/ElectricBreeze/N1.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/N1.png" | relative_url }}){: .align-center}
 
 Ahora, justo al inicio, está el parámetro esperado por `getParameter` que es el char `p`
 
@@ -302,7 +302,7 @@ Si observamos con atención, podremos notar que los valores _se concentran desde
 
 Para convertirlo, no necesariamente tenemos que quitar las comas `,`, sólo usamos un convertidor `ASCII` como el de [RapidTables](https://www.rapidtables.com/convert/number/ascii-hex-bin-dec-converter.html) donde ingresamos toda la cadena al campo `Decimal (bytes)` y _copiamos el texto resultante_ (el texto decodificado).
 
-![UTMP]({{ "/images/ElectricBreeze/Q18.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q18.png" | relative_url }}){: .align-center}
 
 ```bash
 Q18: 82ad42c2fde874c56ee21407e90904aa
@@ -312,7 +312,7 @@ Q18: 82ad42c2fde874c56ee21407e90904aa
 
 Si continuamos el flujo de la función, veremos el método `java.lang.reflect.Method` mencionado donde se declara el arreglo buscado.
 
-![UTMP]({{ "/images/ElectricBreeze/Q19.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q19.png" | relative_url }}){: .align-center}
 
 ```bash
 Q19: 100, 101, 102, 105, 110, 101, 67, 108, 97, 115, 115
@@ -332,7 +332,7 @@ Q20: R2qBFRx0KAZceVi+MWP6FGGs8MMoJRV5M3KY/GBiOn8=
 
 Esto lo podemos hacer con cyberchef; primero, sabemos que es un base64 (por la pregunta anterior pero podemos sospecharlo fuertemente por caracteres como `+/=`) y el resultante estará cifrado en _AES/ECB_ (pero no olvidemos el `PKCS5Padding` que indica) que __no necesitamos Initialization Vector para descencriptar__. Así que sólo tenemos que agregar el _From base64_, agregar el _AES Decrypt_ ingresar el _key_ (__la cadena de la pregunta 18__) en UTF-8, El modo _ECB/NoPadding_ y el _Raw Input_
 
-![UTMP]({{ "/images/ElectricBreeze/Q21.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q21.png" | relative_url }}){: .align-center}
 
 ```bash
 Q21: classDefine by clzd
@@ -358,7 +358,7 @@ Q23: captureLoginPasswordCode
 
 Repitamos el proceso de pasar el one liner a un archivo para facilitar su lectura, y vemos que efectivamente, utiliza la misma llave.
 
-![UTMP]({{ "/images/ElectricBreeze/Q23.png" | relative_url }})
+![UTMP]({{ "/images/ElectricBreeze/Q23.png" | relative_url }}){: .align-center}
 
 ```bash
 Q24: secretKey

@@ -19,15 +19,15 @@ En mi caso, estaré creando el servidor para el SIEM en `Linode`, aprovechando e
 
 Claramente, creas la cuenta y una vez iniciada la sesión, seleccionas `Linodes` y `Create Linode`; ya dentro de la configuración, nos movemos a `Marketplace`
 
-![UTMP]({{ "/images/WazuhConfig/marketplacelinode.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/marketplacelinode.png" | relative_url }}){: .align-center}
 
 Buscamos y seleccionamos `wazuh`
 
-![UTMP]({{ "/images/WazuhConfig/wazuhlinode.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/wazuhlinode.png" | relative_url }}){: .align-center}
 
 Lo que nos ahorrará varios pasos de instalación; Lo que sigue es típicamente la configuración inicial del servidor, región, y el plan: Para esto las `Shared CPU` son más baratas y mínimo, necesitamos el `Linode 4 GB` que tiene lo mínimo recomendado para `Wazuh`; y para recomendación, el de `Linode 8GB` debería irnos bastante bastante bien:
 
-![UTMP]({{ "/images/WazuhConfig/linodeplan.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/linodeplan.png" | relative_url }}){: .align-center}
 
 Lo que deberíamos configurar es la contraseña del `root` o bien las llaves `SSH`, sea cual sera, haremos varios retoques a `SSH` para que sea totalmente seguro.
 
@@ -187,15 +187,15 @@ El último punto a cubrir es tener trazabilidad en los inicios de sesión, esto 
 
 Lo primero que haremos es hacer el bot en telegram; para esto sólo debemos buscar `BotFather` en `Apps` dentro de telegram.
 
-![UTMP]({{ "/images/WazuhConfig/botfather.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/botfather.png" | relative_url }}){: .align-center}
 
 Te debería de aparecer un botón que indica '_Crear Nuevo Bot_' e Indicar nombre, descripción y más detalles. Finalizando el proceso, debería indicarte un API key y cópiala, la usaremos en una request de `curl`
 
-![UTMP]({{ "/images/WazuhConfig/api_bot.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/api_bot.png" | relative_url }}){: .align-center}
 
 Una vez con el bot creado, crea un canal y agrégalo como administrador, le quitarás todos los permisos, excepto `Post Messages`
 
-![UTMP]({{ "/images/WazuhConfig/permisos_bot.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/permisos_bot.png" | relative_url }}){: .align-center}
 
 Cuando lo agregues, ve a la terminal y has la petición:
 
@@ -328,7 +328,7 @@ Remote_Server # sudo chmod 700 /etc/pam_scripts/login-notify.sh
 
 Y probamos la funcionalidad:
 
-![UTMP]({{ "/images/WazuhConfig/notification_bot.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/notification_bot.png" | relative_url }}){: .align-center}
 
 ##  Configuración Servidor Wazuh
 
@@ -336,21 +336,21 @@ Y probamos la funcionalidad:
 
 Bien, ahora con el acceso controlado, nos vamos a nuestro `linode` y hasta abajo en la sección `IP Addresses` encontraremos un registro Reverse DNS
 
-![UTMP]({{ "/images/WazuhConfig/RevDNS.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/RevDNS.png" | relative_url }}){: .align-center}
 
 Copiamos y pegamos en nuestro navegador, las credenciales las encontraremos en el `/home/TuUsuario/.credentials`
 
 _En caso de que no las encuentres ahí, o en el /root, utiliza `find`, si tampoco resulta, busca `wazuh-install-files.tar` y si tampoco está, reinstala el wazuh con `curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh && sudo bash ./wazuh-install.sh -a -o`_
 
-![UTMP]({{ "/images/WazuhConfig/wazuhlogin.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/wazuhlogin.png" | relative_url }}){: .align-center}
 
 Una vez en el portal, en la parte superior izquiera, vendrá una opción para agregar un agente; o buen, puedes seleccionar el menú (esquina superior Izquierda, `Agent Management` > `Summary`)
 
-![UTMP]({{ "/images/WazuhConfig/wazuh-agent-administration.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/wazuh-agent-administration.png" | relative_url }}){: .align-center}
 
 Y una vez ahí, seleccionar `Deploy New Agent`, en cualquier caso, el deployment es súmamente sencillo:
 
-![UTMP]({{ "/images/WazuhConfig/new-agent-deploy.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/new-agent-deploy.png" | relative_url }}){: .align-center}
 
 1. __Elige el sistema operativo__; Como tal no generará un ejecutable, sino que generará un comando a copiar y pegar en una consola o terminal como administrador (lo veremos en un momento), pero sí es importante para cuestión de compatibilidad de comandos_
 
@@ -364,11 +364,11 @@ _Ojo: El servidor, tiene que admitir conexiones a los puertos `1514/tcp` y `1515
 
 Luego, sólo hace falta ejecutar el comando resultante y el `NET START Wazuh`
 
-![UTMP]({{ "/images/WazuhConfig/wazuh-agent-powershell.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/wazuh-agent-powershell.png" | relative_url }}){: .align-center}
 
 _Nota: Si por alguna razón, necesitas hacer debugging, puedes recurri al `ossec.log` dentro de `Program Files (x86)`_
 
-![UTMP]({{ "/images/WazuhConfig/Wazuh-connection.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/Wazuh-connection.png" | relative_url }}){: .align-center}
 
 En este caso, en el log file indica que se ha conectado correctamente, a punto de ser configurado.
 
@@ -380,11 +380,11 @@ Por defecto, los clientes se comunican con el servidor enviando actualizaciones 
 
 En el __Wazuh Dashboard__ dirígete a `Agents Management` y `Groups`
 
-![UTMP]({{ "/images/WazuhConfig/agent-management.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/agent-management.png" | relative_url }}){: .align-center}
 
 Y seleccionamos el grupo que nos interese cambiar y dentro de él, selecciona la pestaña `Files`, dentro de él, verás el archivo `agent.conf` que sólo hace falta hacer clic en el lapicito.
 
-![UTMP]({{ "/images/WazuhConfig/agent-conf.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/agent-conf.png" | relative_url }}){: .align-center}
 
 Este archivo, una vez modificado, el servidor detectará el cambio y enviará la configuración a los agentes.
 
@@ -400,7 +400,7 @@ Guardas la configuración y poco después, empezará a monitorear el directorio 
 
 Para monitorearlo puedes irte al agente y hasta abajo, en la sección `FIM: Recent events`, puedes probar crear un documento y renombrarlo, el resultado será algo como:
 
-![UTMP]({{ "/images/WazuhConfig/FIM_realtime.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/FIM_realtime.png" | relative_url }}){: .align-center}
 
 ### Integración con antivirus
 
@@ -469,7 +469,7 @@ Este active response sólo hace un pequeño log local cuando se activa el `ID 55
 
 En pocos minutos, el manager hará el cambio y se hará el active response, podemos probarlo creando un nuevo fichero y viendo el log:
 
-![UTMP]({{ "/images/WazuhConfig/active-response-log.png" | relative_url }})
+![UTMP]({{ "/images/WazuhConfig/active-response-log.png" | relative_url }}){: .align-center}
 
 
 Y listo! has configurado una respuesta automática!.

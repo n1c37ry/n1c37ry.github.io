@@ -7,7 +7,7 @@ published: true
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _DFIR_ (Digital Forensics and Incident Response) que se enfocan en el __análsis de artefactos forenses__ (es decir, trazas de ataques en los sistemas).
 
-![UTMP]({{ "/images/LogJammer/logo.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen LogJammer
 
@@ -33,11 +33,11 @@ Antes de avanzar, debemos tener claro lo que cada archivo está registrando, ya 
 
 Una vez entendido esto y en nuestro sistema Windows, abrimos el visor de eventos y para importar los archivos, elegimos: `Action` > `Open Saved Log` o su equivalente en español
 
-![UTMP]({{ "/images/LogJammer/eventimport.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/eventimport.png" | relative_url }}){: .align-center}
 
 Una vez elejido el `evtx` lo importará a una carpeta y lo abrirá, puedes importarlos todos para que sea más cómodo moverse entre ellos repitiendo el proceso (tienes que seleccionar `Event Viewer (Local)` o su equivalente para que el menú `Action` permita la opción `Open Saved Log`)
 
-![UTMP]({{ "/images/LogJammer/savedlogs.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/savedlogs.png" | relative_url }}){: .align-center}
 
 Con ello podemos empezar con las tareas:
 
@@ -47,11 +47,11 @@ Para ello buscamos en el `Security.evtx` ya que como mencionamos antes, se regis
 
 Si seleccionamos un log cualquiera, primero veremos que son __hechos con estructura XML__, la estructura que continua ya dependerá del log file a tratar, pero en este caso, podemos verlo seleccionando `Friendly View`:
 
-![UTMP]({{ "/images/LogJammer/xmlstructure.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/xmlstructure.png" | relative_url }}){: .align-center}
 
 Y al hacer el filtro, notaremos que también lo hace con `XML` podemos observarlo si seleccionamos `Filter Current Log` y `XML`
 
-![UTMP]({{ "/images/LogJammer/xmlsearch.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/xmlsearch.png" | relative_url }}){: .align-center}
 
 ```xml
 <QueryList>
@@ -63,7 +63,7 @@ Y al hacer el filtro, notaremos que también lo hace con `XML` podemos observarl
 
 Como vemos, el filtro actual está filtrando el `EventID=4624` dentro de `System`, lo que podemos confirmar si abrimos la estructura:
 
-![UTMP]({{ "/images/LogJammer/systemeventid.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/systemeventid.png" | relative_url }}){: .align-center}
 
 Para poner mayores filtros, debemos habilitar la edición de las búsquedas y con una pequeña [guía de filtros](https://techcommunity.microsoft.com/blog/askds/advanced-xml-filtering-in-the-windows-event-viewer/399761) en mano, podemos continuar.
 
@@ -79,7 +79,7 @@ Tenemos varios métodos, hacer múltiples `Select` para unir búsquedas en una s
 
 Mostrando muchos menos resultados, pero como indica la pregunta, elegimos el que sea el más antiguo:
 
-![UTMP]({{ "/images/LogJammer/Q1.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q1.png" | relative_url }}){: .align-center}
 
 ###### Nota: Recuerda que el formato de la hora es en UTC, que se registra en el SystemTime dentro del log
 
@@ -97,7 +97,7 @@ SID: S-1-5-21-3393683511-3463148672-371912004-1001
 
 Ahora, nos dirigimos al `Windows Firewall-Firewall` y añadimos algo más al filtro: El tiempo; que ahora que tenemos el timestamp del primer inicio de sesión, podremos usarlo para reducir bastante otros logs:
 
-![UTMP]({{ "/images/LogJammer/timefilter.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/timefilter.png" | relative_url }}){: .align-center}
 
 Ya de por sí, abremos reducido bastante los resultados retornados, pero si queremos reducir aún más, podemos añadir otro más con el SID:
 
@@ -111,7 +111,7 @@ Ya de por sí, abremos reducido bastante los resultados retornados, pero si quer
 
 Retornando sólo un resultado:
 
-![UTMP]({{ "/images/LogJammer/Q2.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q2.png" | relative_url }}){: .align-center}
 
 ```bash
 Q2: XXXXXXX C2 Bypass
@@ -121,7 +121,7 @@ Q2: XXXXXXX C2 Bypass
 
 En el mismo log, indica la dirección; vendrá en el XML como número pero si vemos la vista general, nos dirá lo que indica
 
-![UTMP]({{ "/images/LogJammer/Q3.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q3.png" | relative_url }}){: .align-center}
 
 ```bash
 Q3: XXXXXound
@@ -149,7 +149,7 @@ Las tareas programadas las encontraremos con los `Security.evtx`, como sabemos e
 
 Nos retornará sólo un resultado, con nuestra respuesta en el campo `TaskName`
 
-![UTMP]({{ "/images/LogJammer/Q5.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q5.png" | relative_url }}){: .align-center}
 
 
 ```bash
@@ -160,7 +160,7 @@ Q5: HTB-XXXXXXXX
 
 En el mismo log, en uno de los campos/items indica `Command` con una ruta hacia un script de powershell:
 
-![UTMP]({{ "/images/LogJammer/Q6.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q6.png" | relative_url }}){: .align-center}
 
 ```bash
 Q6: C:\Users\CyberJunkie\Desktop\XXXXXXXXXX.ps1
@@ -180,7 +180,7 @@ Esta tarea la podremos completar fácilmente por el bajo ruido del `Windows Defe
 
 Entonces, sabiendo esto, debemos observar los `EventID 1116` donde deveríamos ver el reporte:
 
-![UTMP]({{ "/images/LogJammer/Q8.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q8.png" | relative_url }}){: .align-center}
 
 En el mismo, notarás el campo `Name:` que indicará la amenaza reconocida, junto con una herramienta bastante conocida
 
@@ -200,7 +200,7 @@ Q9: C:\Users\CyberJunkie\Downloads\XXXXXXXX.VX.X.X.zip
 
 Para averiguar la acción tomada, debemos inspeccionar el `EventID 1117`
 
-![UTMP]({{ "/images/LogJammer/Q10.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q10.png" | relative_url }}){: .align-center}
 
 Donde la respuesta la encontraremos en el campo `Action`
 
@@ -222,7 +222,7 @@ Para esta utilizaremos `Powershell-Operational.evtx` donde buscaremos el `EventI
 
 Donde en uno de los 3 bloques, mostrará un comando:
 
-![UTMP]({{ "/images/LogJammer/Q11.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q11.png" | relative_url }}){: .align-center}
 
 ```bash
 Q11: Get-FileHash -Algorithm md5 .\Desktop\Automation-HTB.ps1
@@ -233,11 +233,11 @@ Q11: Get-FileHash -Algorithm md5 .\Desktop\Automation-HTB.ps1
 
 Cuando borramos el Log file, puede llegar a registrarse en distintas partes, pero siempre depende del log file que se esté targeteando, por ejemplo, en el `Security.evtx` se genera un `EventID 1102` con el nombre del usuario que lo limpió, mientras que en otros logs como `System.evtx`, `Application.evtx` entre otos se genera un `EventID 104` refiriéndose a la misma operación. Si lo buscamos en los log files, veremos la entrada en el `System.evtx`. Si hacemos la búsqueda con sólo el filtro del ID, veremos que tendremos 15 eventos...
 
-![UTMP]({{ "/images/LogJammer/Q121.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q121.png" | relative_url }}){: .align-center}
 
 Mientras que si buscamos por la fecha correspondiente de todo el ataque/tiempo que nos es importante, retornará sólo un resultado y nuestra respuesta:
 
-![UTMP]({{ "/images/LogJammer/Q12.png" | relative_url }})
+![UTMP]({{ "/images/LogJammer/Q12.png" | relative_url }}){: .align-center}
 
 ```bash
 Q12: Microsoft-Windows-Windows Firewall With Advanced Security XXXXXXXX

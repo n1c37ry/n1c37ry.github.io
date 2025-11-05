@@ -7,7 +7,7 @@ published: true
 
 Las máquinas (de HackTheBox) son retos gamificados enfocados a __Red Team__ o por lo menos, __seguridad ofensiva__, donde tendrás que intentar __tomar control total__ de la máquina que tengas adelante abusando de vulnerabilidades practicando todo el proceso de _pentesting_ como la _obtención de información_, _explotación_ para obtener un _Foothold_, y luego seguir con generalmente, _movimiento lateral_ y finalmente, la _escalada de privilegios_; Estos laboratorios son especialmente útiles para probar conceptos de seguridad ofensiva ya que tendrás que abusar de ellos para seguir avanzando.
 
-![UTMP]({{ "/images/Strutted/logo.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/logo.png" | relative_url }}){: .align-center}
 
 ## Resumen Strutted
 
@@ -94,13 +94,13 @@ Internamente, cuando nosotros utilizamos nombres de dominio, el sistema revisa s
 
 Continuando, sin mucho que hacer, investigamos la página web:
 
-![UTMP]({{ "/images/Strutted/Page.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/Page.png" | relative_url }}){: .align-center}
 
 __Aquí hay algo importante a ir notando__: Hay una nota que nos indica que es posible ver la _imagen de docker_ de la página __para conocer cómo está configurada__ Y arriba a la derecha el botón de `Download`.
 
 Descargamos el archivo y vemos el contenido, que a primera vista, __es una aplicación Java__; el archivo `tomcat-users.xml` es importantísimo pues aquí __hay credenciales que podemos llegar a utilizar__ y acceder al portal de administración Y de aquí, sólo crear una aplicación war con msfvenom y obtener nuestra shell al sistema... __Pero no es el caso__, pues no permite ingresar al portal de administración, sin mucho que perder, buscamos el archivo `pom.xml`; Este archivo contiene las dependencias de la aplicación:
 
-![UTMP]({{ "/images/Strutted/pomxml.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/pomxml.png" | relative_url }}){: .align-center}
 
 En algunas listadas, aparece `Struts2` y si buscamos su versión `6.3.0.1` __Obtenemos un hit de un CVE__
 
@@ -114,7 +114,7 @@ Ahora, entra otro concepto importante: el OGNL, que se utiliza para __mapear par
 
 Abrimos nuestro _Web Proxy Favorito_ y hacemos una petición con un archivo de prueba:
 
-![UTMP]({{ "/images/Strutted/caido1.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/caido1.png" | relative_url }}){: .align-center}
 
 ###### Nota: Para el archivo de prueba sólo basta con hacer "echo 'GIF87a\n' > text.gif" para imitar el MIME de un gif
 
@@ -124,7 +124,7 @@ Con nuestra _request de prueba_, mandamos la petición a _Repeater_ Y empezamos 
 
 Primero, para la _webshell_ escogemos la de este [PoC del mismo exploit](https://github.com/TAM-K592/CVE-2024-53677-S2-067/blob/ALOK/shell.jsp) Con el archivo en mano, copiamos y pegamos el payload debajo del MIME.
 
-![UTMP]({{ "/images/Strutted/caido2.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/caido2.png" | relative_url }}){: .align-center}
 
 Ahora, _para manipular el OGNL_ debemos copiar una cabecera: el __boundary__ que es un arreglo de caracteres; verás que se repite al inicio de la data POST y al final; pues agrega la misma cabecera __antes del último__.
 
@@ -150,11 +150,11 @@ GIF87a
 
 El nombre, debe de ser con extención jsp, que es la _extensión de nuestra web shell_; cuando las subas, deberás tener una respuesta positiva:
 
-![UTMP]({{ "/images/Strutted/caido3.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/caido3.png" | relative_url }}){: .align-center}
 
 Como observarás, el nombre aparece con el path traversal, lo que lo ubicará en el _ROOT_ __del servidor web__
 
-![UTMP]({{ "/images/Strutted/webs1.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/webs1.png" | relative_url }}){: .align-center}
 
 Obteniendo nuestro foothold!.
 
@@ -162,19 +162,19 @@ Obteniendo nuestro foothold!.
 
 Enumerando lo más básico, podremos encontrar la configuración rápidamente:
 
-![UTMP]({{ "/images/Strutted/webs2.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/webs2.png" | relative_url }}){: .align-center}
 
 Junto con el archivo `tomcat-users.xml`; Si lo enumeramos también:
 
-![UTMP]({{ "/images/Strutted/Credstu.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/Credstu.png" | relative_url }}){: .align-center}
 
 Obtendremos unas credenciales; si queremos tener la posibilidad de usarlas para autenticarnos mediante `SSH`, _lógimanete, debemos saber con qué usuarios podemos utilizarlas_:
 
-![UTMP]({{ "/images/Strutted/home.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/home.png" | relative_url }}){: .align-center}
 
 Lo que nos da acceso a la primera flag:
 
-![UTMP]({{ "/images/Strutted/SSH1.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/SSH1.png" | relative_url }}){: .align-center}
 
 Lo primero que hacemos, es investigar si podemos utilizar `sudo` para ejecutar algún binario con privilegios, encontrando nuestra vía de escalado.
 
@@ -190,7 +190,7 @@ User james may run the following commands on localhost:
 ```
 Si no estás seguro si el binario que listan algunos comandos, puede ser abusable, revisa [GTFOBins](https://gtfobins.github.io/gtfobins/). Y para sopresa quizá de muchos: __Se puede escalar privilegios con tcpdump__ y es muy sencillo.
 
-![UTMP]({{ "/images/Strutted/gtfobins.png" | relative_url }})
+![UTMP]({{ "/images/Strutted/gtfobins.png" | relative_url }}){: .align-center}
 
 Tan sólo tenemos que:
 

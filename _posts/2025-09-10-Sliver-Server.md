@@ -11,7 +11,7 @@ Si hablamos de un _Command And Control_ o _C&C_ en Red Team, nos estamos refirie
 
 Si recordamos algunos conceptos básicos como la _Cyberkill Chain_ de Lockheed Martin; la fase de _Command And Control_ es justo después de ganar acceso al sistema. 
 
-![UTMP]({{ "/images/SliverC2/Cyberkillchain.png" | relative_url }})
+![UTMP]({{ "/images/SliverC2/Cyberkillchain.png" | relative_url }}){: .align-center}
 
 Esto tiene varias razones:
 
@@ -23,7 +23,7 @@ Existen muchos frameworks C2, el más 'Común' de ellos, es __Metasploit__, pero
 
 # Sliver Framework
 
-![UTMP]({{ "/images/SliverC2/Sliver.png" | relative_url }})
+![UTMP]({{ "/images/SliverC2/Sliver.png" | relative_url }}){: .align-center}
 
 Sliver, es un _Command And Control framework diseñado para proveer capacidades avanzadas para administrar y controlar sistemas remotos de forma encubierta_ de código abierto disponible en [Github](https://github.com/BishopFox/sliver) diseñada por BishopFox y desarrollado principalmente sobre `golang`, entre sus capacidades, están las comunicaciones utilizando `Wireguard`, `Mutual TLS` `HTTP/S` y `DNS`, y una característica fundamental, es el `Armory` pero ya veremos eso en un momento.
 
@@ -67,7 +67,7 @@ chmod +x ./sliver-client_linux
 
 O Descargando el realease desde el [repositorio de Github](https://github.com/BishopFox/sliver)
 
-![UTMP]({{ "/images/SliverC2/SliverGithub.png" | relative_url }})
+![UTMP]({{ "/images/SliverC2/SliverGithub.png" | relative_url }}){: .align-center}
 
 Lo que más recomiendo es, o que bien, descarguen tanto el `Client` como el `Server` desde github o con `apt` (que les descargará ambos componentes sin mayor problema) por una sencilla razón: Suele pasar, que mientras estás interactuando en tu sesión únicamente con el server, te equivocaste y precionaste `CTRL + C`, te sacará de la sesión completamente y deteniendo el programa, que resulta en perder todo el progreso, por ello, ejecutas el `server`, habilitas el `multiplayer` (como veremos a continuación) y nos conectamos utilizando el `Client`.
 
