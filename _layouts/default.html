@@ -10,6 +10,7 @@
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}" dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}">
+    <div id="tsparticles"></div>
     {% include_cached skip-links.html %}
     {% include_cached masthead.html %}
 
@@ -32,5 +33,52 @@
     </div>
 
     {% include scripts.html %}
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    
+    const options = {
+      "fullScreen": {
+         "enable": false 
+      },
+      "background": {
+        "color": "#101114" 
+      },
+      "particles": {
+        "number": {
+          "value": 20
+        },
+        "color": {
+          "value": "#6326C7"
+        },
+        "links": {
+          "enable": true,
+          "distance": 150,
+          "color": "#FFFFFF",
+          "opacity": 0.4
+        },
+        "move": {
+          "enable": true
+        },
+        "size": {
+          "value": 1
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onHover": {
+            "enable": true,
+            "mode": "repulse"
+          }
+        }
+      }
+    };
+
+    // Inicializar tsParticles
+    tsParticles.load("tsparticles", options);
+  });
+</script>
+
   </body>
 </html>

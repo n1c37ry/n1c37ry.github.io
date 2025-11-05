@@ -3,6 +3,8 @@ layout: single
 title: "Holmes 1 - Capture The Flag (HTB)"
 author_profile: true
 published: true
+toc: true
+toc_sticky: true
 ---
 
 `Holmes` es un CTF de Blue Team donde nos encontraremos con escenarios enfocados a `Thread Intelligence`, `SOC`, `DFIR` y `Malware Reversing` ambientado en una ciudad futurista llamada `Cogwork-1`. En cada escenario, se nos darán algunos artefactos y tendremos que examinarlos para resolver ciertos ataques relacionado con un threat actor con firma `JM`.

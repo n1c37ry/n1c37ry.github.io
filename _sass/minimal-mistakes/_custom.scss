@@ -1,0 +1,16 @@
+/* Configuración del fondo de tsParticles
+-------------------------------------------------- */
+#tsparticles {
+  position: fixed;    // Se queda fijo en la pantalla
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;        // ¡La parte MÁS importante! Lo envía al fondo
+
+  /* Opcional: asegúrate de que el canvas interno también se comporte */
+  canvas {
+    display: block;
+    vertical-align: bottom;
+  }
+}

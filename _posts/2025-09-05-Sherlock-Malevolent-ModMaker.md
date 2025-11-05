@@ -3,6 +3,8 @@ layout: single
 title: "Sherlocks - Malevolent ModMaker (HTB)"
 author_profile: true
 published: true
+toc: true
+toc_sticky: true
 ---
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _Malware Analysis_  que se enfocan en el __análsis de artefactos y archivos maliciosos__ con el objetivo de entender su funcionalidad, origen e impacto, para poder crear medidas de detección mejorando la seguridad del entorno.

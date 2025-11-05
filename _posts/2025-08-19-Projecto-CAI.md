@@ -3,6 +3,8 @@ layout: single
 title: "Proyecto CAI - Github"
 author_profile: true
 published: true
+toc: true
+toc_sticky: true
 ---
 
 __CAI__ o _Cybersecurity IA_ es un proyecto muy interesante propietario de _aliasrobotics_, su [repositorio de Github](https://github.com/aliasrobotics/cai) está muy bien documentado y da muy buenas pautas a lo que son los agentes y cómo este proyecto los utiliza para poder hacer un framework de seguridad con IA bastante sólido. Invito a todos a darle un vistazo.

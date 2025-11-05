@@ -2,11 +2,10 @@
    Neon skin
    ========================================================================== */
 
-/* Colors */
-$background-color: #141010 !default;
-$text-color: #fff6fb !default;
-$primary-color: #f21368 !default;
-$border-color: mix(#fff, $background-color, 20%) !default;
+$background-color: #101114 !default;
+$text-color: #ffffff !default;
+$primary-color: #00BFFF !default;
+$border-color: mix(#ffffff, $background-color, 20%) !default;
 $code-background-color: mix(#000, $background-color, 15%) !default;
 $code-background-color-dark: mix(#000, $background-color, 20%) !default;
 $form-background-color: mix(#000, $background-color, 15%) !default;
@@ -18,27 +17,54 @@ $masthead-link-color: $text-color !default;
 $masthead-link-color-hover: mix(#000, $text-color, 20%) !default;
 $navicon-link-color-hover: mix(#000, $background-color, 30%) !default;
 
-/* notices */
 $notice-background-mix: 90% !default;
 $code-notice-background-mix: 95% !default;
 
 /* neon syntax highlighting (base16) */
-$base00: #ffffff !default;
-$base01: #e0e0e0 !default;
-$base02: #d0d0d0 !default;
-$base03: #b0b0b0 !default;
-$base04: #000000 !default;
-$base05: #101010 !default;
-$base06: #151515 !default;
-$base07: #202020 !default;
-$base08: #ff0086 !default;
-$base09: #fd8900 !default;
-$base0a: #aba800 !default;
-$base0b: #00c918 !default;
-$base0c: #1faaaa !default;
-$base0d: #3777e6 !default;
-$base0e: #ad00a1 !default;
-$base0f: #cc6633 !default;
+$base00: #1d1f21 !default;
+$base01: #282a2e !default;
+$base02: #373b41 !default;
+$base03: #969896 !default;
+$base04: #b4b7b4 !default;
+$base05: #c5c8c6 !default;
+$base06: #e0e0e0 !default;
+$base07: #ffffff !default;
+$base08: #cc6666 !default;
+$base09: #de935f !default;
+$base0a: #f0c674 !default;
+$base0b: #b5bd68 !default;
+$base0c: #8abeb7 !default;
+$base0d: #81a2be !default;
+$base0e: #b294bb !default;
+$base0f: #a3685a !default;
+
+/* ================================================================== */
+/* Estilos para Títulos (Gama de Azules)                            */
+/* ================================================================== */
+
+.page__title {
+  color: $primary-color;
+}
+
+.page__content {
+  h1, h2, h3, h4, h5, h6 {
+    color: $text-color; /* Un color base por si acaso */
+  }
+
+  h1, h2 {
+    color: $base0d; // El azul suave (#81a2be)
+    border-bottom: 2px solid $base02; // Una línea sutil
+    padding-bottom: 0.3em;
+  }
+
+  h3 {
+    color: $base0c; // El tono cian (#8abeb7)
+  }
+
+  h4, h5, h6 {
+    color: $base05; // Gris claro (#c5c8c6)
+  }
+}
 
 .author__urls.social-icons i,
 .author__urls.social-icons .svg-inline--fa,
@@ -47,7 +73,6 @@ $base0f: #cc6633 !default;
   color: inherit;
 }
 
-/* next/previous buttons */
 .pagination--pager {
   color: $text-color;
   background-color: $primary-color;
@@ -60,4 +85,203 @@ $base0f: #cc6633 !default;
 
 .ais-search-box .ais-search-box--input {
   background-color: $form-background-color;
+}
+
+/* ================================================================== */
+/* Estilo de Terminal "Foco Interactivo" (Versión LIMPIA sin barra)   */
+/* ================================================================== */
+
+figure.highlight pre,
+div.highlight pre,
+pre {
+  background-color: $base00; // Fondo de la paleta base16
+  color: $base05;           // Texto claro de la paleta
+  border-radius: 8px;
+  padding: 15px;
+  position: relative;
+  overflow: auto;
+  border-left: 4px solid $primary-color;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  
+  /* Nos aseguramos de que no haya imágenes de fondo */
+  background-image: none !important;
+}
+
+figure.highlight pre:hover,
+div.highlight pre:hover,
+pre:hover {
+  box-shadow: 0 0 20px 2px rgba($primary-color, 0.6);
+  transform: translateY(-2px);
+}
+
+pre code {
+  background: none !important;
+  color: inherit;
+  font-family: 'Fira Code', 'Menlo', 'Consolas', 'Monaco', monospace; // Fuentes de terminal
+  font-size: 0.9em;
+}
+
+/* =========================================== */
+/* Color de selección de texto dentro del código */
+/* =========================================== */
+
+figure.highlight pre::selection,
+div.highlight pre::selection,
+pre::selection,
+figure.highlight pre code::selection,
+div.highlight pre code::selection,
+pre code::selection {
+  background: $primary-color;
+  color: $base00;
+}
+
+/* ================================================================== */
+/* Estilos para Texto Inline (Negritas, Cursivas, Código)           */
+/* ================================================================== */
+
+.page__content {
+
+  strong, b {
+    color: $base0a; // Amarillo (#f0c674)
+    font-weight: bold;
+  }
+
+  em, i {
+    color: $base05; // Gris claro (#c5c8c6)
+    font-style: italic;
+  }
+
+  p code,
+  li code,
+  a code {
+    background-color: $base01; // Un fondo oscuro (#282a2e)
+    color: $base09;           // Naranja (#de935f)
+    font-family: 'Fira Code', 'Menlo', 'Consolas', 'Monaco', monospace;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    vertical-align: middle; // Ayuda a alinearlo mejor con el texto
+  }
+}
+
+/* ================================================================== */
+/* Estilos para el Perfil de Autor (Sidebar)                        */
+/* ================================================================== */
+
+.sidebar .author__name {
+  color: $primary-color;
+  font-weight: 600;
+}
+
+.sidebar .author__avatar img {
+  border: 3px solid $base02; // Un borde base sutil
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.sidebar .author__avatar img:hover {
+  border-color: $primary-color;
+  box-shadow: 0 0 20px 2px rgba($primary-color, 0.6);
+}
+
+.sidebar .author__bio {
+  color: $base0d; // Azul suave
+}
+
+.sidebar .author__links .author__urls-link {
+  color: $base05; // Color gris claro por defecto
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  display: inline-block; // Necesario para el transform
+}
+
+.sidebar .author__links .svg-inline--fa {
+  color: $base05; // Icono gris claro por defecto
+  transition: color 0.3s ease-in-out;
+}
+
+.sidebar .author__links .author__urls-item:hover {
+  
+  .author__urls-link {
+    color: $primary-color;
+    transform: translateX(3px); // Pequeño "pop" hacia la derecha
+  }
+  
+  .svg-inline--fa {
+    color: $primary-color;
+  }
+}
+
+/*
+================================================
+// --- Estilos Corregidos para la ToC (Neon) ---
+// --- (Usando .toc y .toc__menu) ---
+================================================
+*/
+
+/* Contenedor principal de la ToC */
+.toc {
+  background-color: $base00; // Fondo oscuro como tus bloques de código
+  border: 1px solid $base02; // Borde sutil
+  border-radius: 8px; // Bordes redondeados
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); // Sombra consistente
+
+  /* Título de la ToC (ej: "Contenido") */
+  .nav__title {
+    color: $primary-color; // Tu azul neón principal
+    background: transparent; // Sin fondo de color sólido
+    border-bottom: 2px solid $base02; // Línea sutil, como en tus h2
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 0.75rem 1rem; // Ajuste de padding
+    
+    // Reseteamos los bordes redondeados del header por defecto
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+}
+
+/* Lista de enlaces */
+.toc__menu {
+  font-size: 0.9em; // Un poco más pequeño para que quepa más
+  padding: 0.5rem 0; // Espacio interior
+
+  a {
+    color: $base05; // Gris claro (texto normal)
+    border-bottom: none; // Quitamos la línea inferior por defecto
+    border-left: 3px solid transparent; // Borde para el estado activo/hover
+    padding: 0.4em 1rem; // Padding vertical y horizontal
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Enlace al pasar el mouse (hover) */
+  a:hover {
+    color: $text-color; // Blanco brillante
+    background-color: $base01; // Fondo oscuro sutil
+    border-left-color: $link-color-hover; // Borde azul más claro
+    transform: translateX(3px); // Efecto "pop"
+  }
+
+  /* Elementos anidados (h3, h4...) */
+  li ul > li a {
+    padding-inline-start: 2rem; // Aumentamos la sangría
+  }
+  li ul li ul > li a {
+    padding-inline-start: 3rem;
+  }
+}
+
+/* --- ¡Este es el estilo clave! --- */
+/* Resalta el enlace ACTIVO (la sección que estás viendo) */
+/* El .active se aplica al <li>, por eso usamos "> a" */
+.toc .active > a {
+  color: $text-color; // Blanco brillante
+  font-weight: bold;
+  background-color: $base01; // Fondo "inset" oscuro
+  border-left: 3px solid $primary-color; // Borde azul neón principal
+  
+  // ¡El efecto "Neon" que coincide con tu skin!
+  box-shadow: 0 0 15px -3px rgba($primary-color, 0.6);
 }

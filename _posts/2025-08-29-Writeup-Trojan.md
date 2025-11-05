@@ -3,6 +3,8 @@ layout: single
 title: "Sherlocks - Trojan (HTB)"
 author_profile: true
 published: true
+toc: true
+toc_sticky: true
 ---
 
 Los sherlocks (De HackTheBox) son retos gamificados enfocados a __Blue Team__, en ellos, se encuentran distintas situaciones donde uno debe utilizar herramientas de analsis y artefactos para completar las tareas. Y claro, hay __categorías__ según lo que quieras entrenar, como por ejemplo _DFIR_ (Digital Forensics and Incident Response) que se enfocan en el __análsis de artefactos forenses__ (es decir, trazas de ataques en los sistemas).
