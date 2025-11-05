@@ -7,6 +7,9 @@ published: true
 
 Las simulaciones de __Boss of the SOC (BOTS)__ son entornos gamificados que nos permiten fortalecer nuestras habilidades como __Blue Team__, aunque en escenarios como **Taedonggang APT**, también exploramos técnicas propias del __Red Team__, especialmente en las etapas iniciales de una intrusión.
 
+![UTMP]({{ "/images/BOTS-Parte1/logo.png" | relative_url }})
+
+
 En este escenario, nos enfrentamos a una campaña simulada de un actor avanzado persistente (_APT_), donde debemos identificar y analizar los vectores de __acceso inicial__, así como realizar un profundo __reconocimiento__ de la infraestructura comprometida. Aquí no buscamos tomar control total de una máquina, sino entender cómo lo haría un atacante real y cómo podríamos detectarlo.
 
 Durante el reto, ponemos en práctica técnicas como:
