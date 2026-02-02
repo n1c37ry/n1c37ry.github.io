@@ -17,7 +17,7 @@ Las máquinas (de HackTheBox) son retos gamificados enfocados a __Red Team__ o p
 
 Esta máquina Windows sencillita, se utilizan los siguientes conceptos/path de ataque.
 
-1. __Enumeración General__ Reconocimiento inical, el pan de cada día.
+1. __Escaneo Inicial__ Reconocimiento inical, el pan de cada día.
 2. __Enumeración SMB__ Enumeramos SMB para buscar archivos interesantes.
 3. __GPP Passwords__ Encontramos un archivo con una contraseña GPP que podemos desencriptar.
 4. __Kerberoasting__ Buscamos SPN y encontramos una cuenta interesante para intentar kerberoasting.
@@ -109,6 +109,8 @@ Accediendo a `msfconsole`, buscamos `MS17-010`, el identificador de Eternal Blue
 
 Sin más que quejarse por intentar la vía más fácil, intentamos enumerar SMB `smbmap` con credenciales vacías (una mala configuración común):
 
+### Enumeración SMB
+
 ```js
 smbmap -u '' -p '' -H 10.129.7.199
 [+] IP: 10.129.7.199:445        Name: 10.129.7.199
@@ -145,6 +147,8 @@ En nuestra salida, se nos mostrará un archivo `json` que contendrá las rutas d
 active.htb/Policies/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Preferences/Groups/Groups.xml
 <SNIP>
 ```
+
+### GPP Passwords
 
 El archivo __Groups.xml__ es un archivo generado por windows cuando un administrador utiliza las _Preferencias de Directiva de Grupo_ para crear un usuario local, cambiar una contraseña o añadir usuarios a un grupo local en los equipos de un dominio; este archivo por lo general se guarda en __SYSVOL__ pero en este caso particular, nos está permitiendo la lectura (Anónima, que es lo que nos está introduciendo una vulnerabilidad).
 
@@ -187,6 +191,8 @@ LDAP        10.129.7.199    389    DC               Compressing output into /hom
 
 Desde la GUI en `Bloodhound`, hacemos una pequeña búsqueda de nuestro usuario; sus grupos pertenecientes... pero no encontramos demasiado; el siguiente paso, es buscar cuentas con __SPNs__ (_Service Principal Names_) Esto es estandard, ya que ahora somos usuarios autenticados y cualquiera, puede pedir esta información, para intentar un __kerberoasting__
 
+### Kerberoasting
+
 En un entorno de AD, nosotros podemos crear un servicio, por cualquier razón, y este servicio (El __SPN__) por lo general está vinculado a una cuenta, entonces, cuando se utiliza el servicio, estás pidiendo a grandes razgos, permiso al emisor de Kerberos (El poderosísimo __KDC__) y él te da un Ticket, para que puedas usar este servicio (Específicamente un TGS), Este ticket, __está cifrado con el hash de la contraseña de la cuenta de servicio__. Nosotros, al tener un ticket de este tipo, podemos tratar de encontrar la contraseña (el hash en realidad) con el que fue encriptado el ticket, entonces, dependerá de qué tan segura es realmente la contraseña.
 
 Para buscar cuentas Kerberoasteables, utilizamos la siguiente query de Cypher:
@@ -209,6 +215,8 @@ impacket-GetUserSPNs -dc-ip 10.129.9.79 -target-domain ACTIVE.HTB ACTIVE.HTB/SVC
 En pantalla nos mostrará el TGS:
 
 ![UTMP]({{ "/images/Active/SPNs.png" | relative_url }}){: .align-center}
+
+### Desencriptado de contraseña
 
 Ahora, lo copiamos y pegamos en un archivo para utilizar `hashcat` con `rockyou.txt` y tratar de desencriptarlo:
 
