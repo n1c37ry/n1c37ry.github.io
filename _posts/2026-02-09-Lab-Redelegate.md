@@ -96,7 +96,7 @@ Y no olvides descargar los otros dos archivos!
 
 ¿Qué sigue?, bueno, ese archivo `kdbx` es una caja fuerte de contraseñas, si tiene alguna débil, podremos leer los contenidos y seguramente, alguna cuenta. Además... Leyendo los archivos, mencionan algo que nos interesa:
 
-![UTMP]({{ "/images/Redelegate/training.png" | relative_url }}){: .align-center}
+![UTMP]({{ "/images/Redelegate/Training.png" | relative_url }}){: .align-center}
 
 Quizá demasiado directo, pero útil; entonces creamos nuestro pequeño diccionario con ese formato:
 
