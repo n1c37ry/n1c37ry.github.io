@@ -92,7 +92,6 @@ A primera instancia, confirmamos que el puerto 8000 sí es un servicio http; lo 
 
 Accediendo a la `IP:8000` Podemos ver La página principal con la que nos dará pistas de lo que es:
 
-// Imagen
 
 
 En ella, se nos ofrece la oportunidad de crear una cuenta y descargar la aplicación.
