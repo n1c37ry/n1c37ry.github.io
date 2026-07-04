@@ -12,6 +12,9 @@ El desarrollo de malware (o Maldev) es un tema que personalmente me apasiona, "c
 
 Claramente, todo esto es con fines éticos y no lo digo sólo para deslindarme de la responsabilidad de lo que hagan con lo que trato de bloggear, sino hacerlo con la mentalidad de que esto tiene un impacto real, y la industria paga muy bien por ello y contribuyes a que el mundo siga avanzando a mejor, y yo por lo menos, trabajo para eso, aunque aún sea mínimo el trabajo que yo haga.
 
+![UTMP]({{ "/images/Intro_Maldev_1/logo.png" | relative_url }}){: .align-center}
+
+
 ## Maldev
 
 Si llegaste hasta aquí, muy probablemente ya te han llenado de conceptos de lo que es el malware, troyanos, gusanos... un poco quemados en mi opinión porque hay tantísimas variantes que no alcanzan a nombrarlas todas, y más con la IA, pero a nivel de desarrollo de malware, las cosas no parecen que digas, "voy a hacer esta combinación para hacer un rat rabit clásico y llenar su memoria RAM de basura" y son más bien parecidas a como si hicieras un programa normal.
